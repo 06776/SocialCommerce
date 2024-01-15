@@ -4,7 +4,7 @@ const User = require("./model/user");
 
 mongoose
   .connect(
-    "mongodb+srv://socialcommerce:W3K3hjztCrft@socialcommerce.xuhc4r5.mongodb.net/SocialCommerce",
+    "",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
