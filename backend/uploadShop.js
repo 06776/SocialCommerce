@@ -1,46 +1,43 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const User = require("./model/user");
+const Shop = require("./model/shop");
 
 mongoose
-  .connect("", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("Sikeresen csatlakozva a MongoDB-hez");
 
-    const userData = {
-      name: "Minta Péter",
-      email: "mintapeter@gmail.com",
+    const shopData = {
+      name: "Minta János",
+      email: "mintajanos@gmail.com",
       password: "Teszt1234",
+      description: "Teszt eladó",
+      address: "Teszt utca, 11",
       phoneNumber: 123456789,
-      addresses: [
-        {
-          country: "Hungary",
-          city: "Budapest",
-          address1: "Teszt utca",
-          address2: "12",
-          zipCode: 1234,
-          addressType: "Home",
-        },
-      ],
-      role: "user",
+      role: "Seller",
       avatar: {
         public_id: "example-public-id",
         url: "example-avatar-url",
       },
+      zipCode: 1234,
+      availableBalance: 0,
     };
 
-    const user = new User(userData);
-    user
+    const shop = new Shop(shopData);
+    shop
       .save()
       .then(() => {
-        console.log("A felhasználó létre hozva és mentve az adatbázisba");
+        console.log("Az eladó létre hozva és mentve az adatbázisba");
       })
       .catch((error) => {
         console.error(
-          "Hiba történt a felhasználó adatainak mentése során: ",
+          "Hiba történt az eladó adatainak mentése során: ",
           error.message
         );
       })
