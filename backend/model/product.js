@@ -5,28 +5,35 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true],
   },
+
   description: {
     type: String,
     required: [true],
   },
+
   category: {
     type: String,
     required: [true],
   },
+
   tags: {
     type: String,
   },
+
   originalPrice: {
     type: Number,
   },
+
   discountPrice: {
     type: Number,
     required: [true],
   },
+
   stock: {
     type: Number,
     required: [true],
   },
+
   images: [
     {
       public_id: {
@@ -39,6 +46,7 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
+
   reviews: [
     {
       user: {
@@ -59,21 +67,26 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
+
   ratings: {
     type: Number,
   },
+
   shopId: {
     type: String,
     required: true,
   },
+
   shop: {
     type: Object,
     required: true,
   },
+
   sold_out: {
     type: Number,
     default: 0,
   },
+
   createdAt: {
     type: Date,
     default: Date.now(),
