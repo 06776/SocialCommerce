@@ -7,19 +7,23 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true],
   },
+
   email: {
     type: String,
     required: [true],
   },
+
   password: {
     type: String,
     required: [true],
     minLength: [8],
     select: false,
   },
+
   phoneNumber: {
     type: Number,
   },
+
   addresses: [
     {
       country: {
@@ -42,10 +46,12 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+
   role: {
     type: String,
     default: "user",
   },
+
   avatar: {
     public_id: {
       type: String,
@@ -56,10 +62,12 @@ const userSchema = new mongoose.Schema({
       required: true,
     },
   },
+
   createdAt: {
     type: Date,
     default: Date.now(),
   },
+
   resetPasswordToken: String,
   resetPasswordTime: Date,
 });
