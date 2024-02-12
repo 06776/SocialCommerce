@@ -2,7 +2,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
-  err.message = err.message || "Internal server error";
+  err.message = err.message || "Belső szerver hiba történt";
   if (err.name === "CastError") {
     const message = `Resources not found with ${err.path}`;
     err = new ErrorHandler(message, 400);
@@ -14,12 +14,12 @@ module.exports = (err, req, res, next) => {
   }
 
   if (err.name === "JsonWebTokenError") {
-    const message = `Your url is invalid, please try again`;
+    const message = `Hibás link`;
     err = new ErrorHandler(message, 400);
   }
 
   if (err.name === "TokenExpiredError") {
-    const message = `Your url is expired, please try again`;
+    const message = `Hibás link`;
     err = new ErrorHandler(message, 400);
   }
 
