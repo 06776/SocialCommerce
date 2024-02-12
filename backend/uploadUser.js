@@ -3,10 +3,13 @@ const bcrypt = require("bcryptjs");
 const User = require("./model/user");
 
 mongoose
-  .connect("", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("Sikeresen csatlakozva a MongoDB-hez");
 
