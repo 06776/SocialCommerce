@@ -36,8 +36,7 @@ router.post("/create-user", async (req, res, next) => {
       await sendMail({
         email: user.email,
         subject: "Felhasználó aktiválás",
-        message:
-        `Kedves ${user.name}!
+        message: `Kedves ${user.name}!
         
         Kérjük, aktiváld regisztrációdat az alábbi linkre kattintva:
         ${activationUrl}
@@ -98,12 +97,7 @@ router.post(
     try {
       const { email, password } = req.body;
       if (!email || !password) {
-        return next(
-          new ErrorHandler(
-            "Hibás e-mail cím vagy jelszó",
-            400
-          )
-        );
+        return next(new ErrorHandler("Hibás e-mail cím vagy jelszó", 400));
       }
 
       const user = await User.findOne({ email }).select("+password");
@@ -343,9 +337,7 @@ router.delete(
       const user = await User.findById(req.params.id);
 
       if (!user) {
-        return next(
-          new ErrorHandler("Nincs ilyen felhasználó", 400)
-        );
+        return next(new ErrorHandler("Nincs ilyen felhasználó", 400));
       }
       const imageId = user.avatar.public_id;
       await cloudinary.v2.uploader.destroy(imageId);
