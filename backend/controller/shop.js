@@ -10,57 +10,59 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHandler = require("../utils/ErrorHandler");
 const sendShopToken = require("../utils/shopToken");
 
-router.post("/create-shop", catchAsyncErrors(async (req, res, next) => {
-  try {
-    const { email } = req.body;
-    const sellerEmail = await Shop.findOne({ email });
-    if (sellerEmail) {
-      return next(new ErrorHandler("Az e-mail cím foglalt", 400));
-    }
-    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-      folder: "avatars",
-    });
-
-    const seller = {
-      name: req.body.name,
-      email: email,
-      password: req.body.password,
-      avatar: {
-        public_id: myCloud.public_id,
-        url: myCloud.secure_url,
-      },
-      address: req.body.address,
-      phoneNumber: req.body.phoneNumber,
-      zipCode: req.body.zipCode,
-    };
-
-    const activationToken = createActivationToken(seller);
-    const activationUrl = `http://localhost:3000/seller/activation/${activationToken}`;
-
+router.post(
+  "/create-shop",
+  catchAsyncErrors(async (req, res, next) => {
     try {
-      await sendMail({
-        email: seller.email,
-        subject: "Aktiváld eladói fiókodat",
-        message:
-        `Kedves ${seller.name}!
+      const { email } = req.body;
+      const sellerEmail = await Shop.findOne({ email });
+      if (sellerEmail) {
+        return next(new ErrorHandler("Az e-mail cím foglalt", 400));
+      }
+      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+      });
+
+      const seller = {
+        name: req.body.name,
+        email: email,
+        password: req.body.password,
+        avatar: {
+          public_id: myCloud.public_id,
+          url: myCloud.secure_url,
+        },
+        address: req.body.address,
+        phoneNumber: req.body.phoneNumber,
+        zipCode: req.body.zipCode,
+      };
+
+      const activationToken = createActivationToken(seller);
+      const activationUrl = `http://localhost:3000/seller/activation/${activationToken}`;
+
+      try {
+        await sendMail({
+          email: seller.email,
+          subject: "Aktiváld eladói fiókodat",
+          message: `Kedves ${seller.name}!
 
         Köszönjük regisztrációdat.
         Kérjük, aktiváld fiókodat az alábbi linkre kattintva:
         ${activationUrl}
         
         Üdvözlettel: SocialCommerce`,
-      });
-      res.status(201).json({
-        success: true,
-        message: `Ellenőrizd az e-mail-jeidet fiókod aktiválásához`,
-      });
+        });
+        res.status(201).json({
+          success: true,
+          message: `Ellenőrizd az e-mail-jeidet fiókod aktiválásához`,
+        });
+      } catch (error) {
+        return next(new ErrorHandler(error.message, 500));
+      }
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
+      return next(new ErrorHandler(error.message, 400));
     }
-  } catch (error) {
-    return next(new ErrorHandler(error.message, 400));
-  }
-}));
+  })
+);
 
 const createActivationToken = (seller) => {
   return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
@@ -117,9 +119,7 @@ router.post(
       }
       const isPasswordValid = await user.comparePassword(password);
       if (!isPasswordValid) {
-        return next(
-          new ErrorHandler("A megadott jelszó hibás", 400)
-        );
+        return next(new ErrorHandler("A megadott jelszó hibás", 400));
       }
       sendShopToken(user, 201, res);
     } catch (error) {
@@ -188,21 +188,21 @@ router.put(
   catchAsyncErrors(async (req, res, next) => {
     try {
       let existsSeller = await Shop.findById(req.seller._id);
-        const imageId = existsSeller.avatar.public_id;
-        await cloudinary.v2.uploader.destroy(imageId);
-        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-          folder: "avatars",
-          width: 150,
-        });
-        existsSeller.avatar = {
-          public_id: myCloud.public_id,
-          url: myCloud.secure_url,
-        };
+      const imageId = existsSeller.avatar.public_id;
+      await cloudinary.v2.uploader.destroy(imageId);
+      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+      });
+      existsSeller.avatar = {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      };
 
       await existsSeller.save();
       res.status(200).json({
         success: true,
-        seller:existsSeller,
+        seller: existsSeller,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
@@ -263,9 +263,7 @@ router.delete(
     try {
       const seller = await Shop.findById(req.params.id);
       if (!seller) {
-        return next(
-          new ErrorHandler("Nincs ilyen felhasználó", 400)
-        );
+        return next(new ErrorHandler("Nincs ilyen felhasználó", 400));
       }
       await Shop.findByIdAndDelete(req.params.id);
       res.status(201).json({
