@@ -7,31 +7,38 @@ const shopSchema = new mongoose.Schema({
     type: String,
     required: [true],
   },
+
   email: {
     type: String,
     required: [true],
   },
+
   password: {
     type: String,
     required: [true],
     minLength: [8],
     select: false,
   },
+
   description: {
     type: String,
   },
+
   address: {
     type: String,
     required: true,
   },
+
   phoneNumber: {
     type: Number,
     required: true,
   },
+
   role: {
     type: String,
     default: "Seller",
   },
+
   avatar: {
     public_id: {
       type: String,
@@ -42,14 +49,17 @@ const shopSchema = new mongoose.Schema({
       required: true,
     },
   },
+
   zipCode: {
     type: Number,
     required: true,
   },
+
   availableBalance: {
     type: Number,
     default: 0,
   },
+
   transections: [
     {
       amount: {
@@ -69,10 +79,12 @@ const shopSchema = new mongoose.Schema({
       },
     },
   ],
+
   createdAt: {
     type: Date,
     default: Date.now(),
   },
+
   resetPasswordToken: String,
   resetPasswordTime: Date,
 });
