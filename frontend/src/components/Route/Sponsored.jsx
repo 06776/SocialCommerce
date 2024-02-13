@@ -1,5 +1,3 @@
-const Sponsored = () => {
-  
-}
+const Sponsored = () => {};
 
 export default Sponsored;
