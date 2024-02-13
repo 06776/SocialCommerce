@@ -153,7 +153,7 @@ const AllCoupons = () => {
                 <h5 className="text-[30px] font-Poppins text-center">
                   Create Coupon code
                 </h5>
-                <form onSubmit={handleSubmit} aria-required={true}>
+                <form onSubmit={handleSubmit}>
                   <br />
                   <div>
                     <label className="pb-2">
