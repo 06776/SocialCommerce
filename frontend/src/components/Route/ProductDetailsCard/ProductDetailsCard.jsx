@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   AiFillHeart,
   AiOutlineHeart,
-  AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
@@ -22,7 +21,6 @@ const ProductDetailsCard = ({ setOpen, data }) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
   const [click, setClick] = useState(false);
-  //   const [select, setSelect] = useState(false);
 
   const handleMessageSubmit = () => {};
 
@@ -46,7 +44,7 @@ const ProductDetailsCard = ({ setOpen, data }) => {
       } else {
         const cartData = { ...data, qty: count };
         dispatch(addTocart(cartData));
-        toast.success("Item added to cart successfully!");
+        toast.success("Termék a kosárhoz adva");
       }
     }
   };
@@ -57,7 +55,7 @@ const ProductDetailsCard = ({ setOpen, data }) => {
     } else {
       setClick(false);
     }
-  }, [wishlist]);
+  }, [wishlist, data._id]);
 
   const removeFromWishlistHandler = (data) => {
     setClick(!click);
@@ -94,18 +92,16 @@ const ProductDetailsCard = ({ setOpen, data }) => {
                       <h3 className={`${styles.shop_name}`}>
                         {data.shop.name}
                       </h3>
-                      <h5 className="pb-3 text-[15px]">{data?.ratings} Ratings</h5>
+                      <h5 className="pb-3 text-[15px]">
+                        {data?.ratings} Ratings
+                      </h5>
                     </div>
                   </Link>
                 </div>
                 <div
                   className={`${styles.button} bg-[#000] mt-4 rounded-[4px] h-11`}
                   onClick={handleMessageSubmit}
-                >
-                  <span className="text-[#fff] flex items-center">
-                    Send Message <AiOutlineMessage className="ml-1" />
-                  </span>
-                </div>
+                ></div>
                 <h5 className="text-[16px] text-[red] mt-5">(50) Sold out</h5>
               </div>
 
