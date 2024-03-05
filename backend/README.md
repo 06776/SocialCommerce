@@ -4,7 +4,7 @@ A SocialCommerce nevű projekt BackEnd-je. <br> A projekthez használt adatbázi
 
 ## A BackEnd elindítása
 
-A klónozást követően a 'backend' mappán belül a következő parancs használata (CMD-ben vagy a Visual Studio Code Terminal-jában): 'npm install' (függőségek telepítése). <br> A 'backend' mappában ezt követően az 'npm start' paranccsal indítható a backend.
+A klónozást követően a 'backend' mappán belül a következő parancs használata (CMD-ben vagy a Visual Studio Code Terminal-jában): 'npm install' (függőségek telepítése). <br> A 'backend' mappában ezt követően az 'npm start' paranccsal indítható a BackEnd. <br> (A BackEnd sikeres elindításához a .env fájl megléte is szükséges! Biztonsági okokból ez nem áll rendelkezésre a projekt repo-jában!)
 
 ## Created and written by
 
