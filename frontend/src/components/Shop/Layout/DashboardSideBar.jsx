@@ -12,7 +12,6 @@ import { HiOutlineReceiptRefund } from "react-icons/hi";
 const DashboardSideBar = ({ active }) => {
   return (
     <div className="w-full h-[90vh] bg-white shadow-sm overflow-y-scroll sticky top-0 left-0 z-10">
-      {/* single item */}
       <div className="w-full flex items-center p-4">
         <Link to="/dashboard" className="w-full flex items-center">
           <RxDashboard
@@ -24,7 +23,7 @@ const DashboardSideBar = ({ active }) => {
               active === 1 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Dashboard
+            Kezdőlap
           </h5>
         </Link>
       </div>
@@ -40,7 +39,7 @@ const DashboardSideBar = ({ active }) => {
               active === 2 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Orders
+            Rendelések
           </h5>
         </Link>
       </div>
@@ -53,7 +52,7 @@ const DashboardSideBar = ({ active }) => {
               active === 3 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Products
+            Termékek
           </h5>
         </Link>
       </div>
@@ -72,7 +71,7 @@ const DashboardSideBar = ({ active }) => {
               active === 4 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Create Product
+            Termék létrehozása
           </h5>
         </Link>
       </div>
@@ -88,7 +87,7 @@ const DashboardSideBar = ({ active }) => {
               active === 5 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Events
+            Események
           </h5>
         </Link>
       </div>
@@ -104,7 +103,7 @@ const DashboardSideBar = ({ active }) => {
               active === 6 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Create Event
+            Esemény létrehozása
           </h5>
         </Link>
       </div>
@@ -123,7 +122,7 @@ const DashboardSideBar = ({ active }) => {
               active === 7 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Withdraw Money
+            Pénzfelvétel
           </h5>
         </Link>
       </div>
@@ -139,7 +138,7 @@ const DashboardSideBar = ({ active }) => {
               active === 8 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Shop Inbox
+            Üzenetek
           </h5>
         </Link>
       </div>
@@ -155,7 +154,7 @@ const DashboardSideBar = ({ active }) => {
               active === 9 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Discount Codes
+            Kuponkódok
           </h5>
         </Link>
       </div>
@@ -171,7 +170,7 @@ const DashboardSideBar = ({ active }) => {
               active === 10 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Refunds
+            Visszatérítések
           </h5>
         </Link>
       </div>
@@ -187,7 +186,7 @@ const DashboardSideBar = ({ active }) => {
               active === 11 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Settings
+            Beállítások
           </h5>
         </Link>
       </div>
