@@ -7,7 +7,7 @@
 
 # Konzulens
 
-- Varga Zsófia - Webprogramozó
+- Varga Zsófia - FrontEnd fejlesztő
 
 # Tartalomjegyzék
 
