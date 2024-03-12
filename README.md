@@ -7,7 +7,7 @@
 
 # Konzulens
 
-- Varga Zsófia - FrontEnd fejlesztő
+- Varga Zsófia - Webprogramozó
 
 # Tartalomjegyzék
 
@@ -15,9 +15,11 @@
 - [Licencek](#licencek)
 - [Felhasznált technológiák](#felhasznált-technológiák)
 - [Követelmények](#követelmények)
-  - [Funkcionális](#funkcionális)
-  - [Nem funkcionális](#nem-funkcionális)
-- [Tervek](#tervek)
+  - [BackEnd](#backend)
+    - [Funkcionális](#funkcionális)
+      - [User](#user)
+      - [Shop](#shop)
+    - [Nem funkcionális](#nem-funkcionális)
 - [Program leírása](#program-leírása)
 - [Végpontok leírása](#végpontok-leírása)
   - [CouponCode](#couponcode)
@@ -42,31 +44,61 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 
 # Felhasznált technológiák
 
-## Keretrendszer:
+## BackEnd keretrendszer:
 
-- React JS (18.2.0)
-
-## Programnyelv:
-
-- JSX (JavaScript XML)
+- Express JS
 
 ## Adatbázis kiszolgáló:
 
-- MongoDB (6.0)
+- MongoDB
+
+## E-mail küldés:
+
+- NodeMailer
+
+## FrontEnd keretrendszer:
+
+- React JS
+
+## CSS kiszolgáló:
+
+- Tailwind CSS
+
+## JavaScript kiszolgáló:
+
+- Node JS
 
 # Követelmények
 
-## Funkcionális:
+## BackEnd
 
-- Az oldal bejelentkezés nélkül nem használható.
-- Egy termék létrehozásához eladói profil megléte szükséges.
-- Terméket csak eladóként lehet létrehozni.
-- Egy adott termék vásárlásához regisztrált fiók szükséges.
+### Funkcionális:
 
-## Nem funkcionális:
+#### User:
 
-- Webalkalmazásunk JSX (HTML) használatával készült.
-- Adatbázisunk JavaScript nyelven íródott, kiszolgálónk pedig a MongoDB adatbáziskezelő.
+-	A vásárlás regisztrációhoz kötött
+-	Regisztráció során kötelező megadni egy nevet, egy e-mailt és egy jelszót
+-	A jelszónak legalább 8 karakterből kell állnia
+-	Az első bejelentkezéshez kötelező a felhasználói fiók aktiválása a regisztráció után
+-	Bejelentkezéshez kötelező megadni egy e-mailt és egy jelszót
+-	A címek mentése (rendeléshez), értékelések írása (termékekhez) felhasználói fiókhoz kötött
+-	Rendelés során kötelező megadni a szállítási adatokat, illetve a fizetési módot is
+-	A termékek fiók létrehozása nélkül is megtekinthetőek
+
+#### Shop:
+
+-	Termékek eladásához eladói fiók regisztrálása szükséges
+-	Regisztráció során kötelező megadni az eladó vagy a vállalkozás nevét, egy telefonszámot, egy e-mailt, az eladó vagy vállalkozás címét, egy irányítószámot és egy jelszót
+-	A jelszónak legalább 8 karakterből kell állnia
+-	Az első bejelentkezéshez kötelező az eladói fiók aktiválása a regisztráció után
+-	Bejelentkezéshez kötelező megadni egy e-mailt és egy jelszót
+-	Termék feltöltése során kötelező megadni a termék nevét, kategóriáját, leírását, árát, illetve képet a termékről
+
+### Nem funkcionális:
+
+-	Az adatbázis kiszolgáló a MongoDB (6.0)
+-	Az e-maileket a NodeMailer (6.9.1) küldi
+-	A projekt a NodeJS (16) használatával készült
 
 # Tervek
 
@@ -80,185 +112,108 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 
 ## Végpontok leírása
 
-### CouponCode:
+### User:
 
-- **create-coupon-code**
-  - Metódus: POST
-  - Cél: Új kuponkód létrehozása
+-	Végpont neve: **/create-user**
+-	Bejövő paraméter: -
+-	Hova mutat: Fiók létrehozása
 
-- **get-coupon/:id**
-  - Metódus: GET
-  - Paraméterek: id (az eladó azonosítója)
-  - Cél: Az eladóhoz tartozó összes kuponkód lekérdezése
+-	Végpont neve: **/activation**
+-	Bejövő paraméter: activation token (string)
+-	Hova mutat: Fiók aktiválása
 
-- **delete-coupon/:id**
-  - Metódus: DELETE
-  - Paraméterek: id (kuponkód azonosítója)
-  - Cél: Kuponkód törlése az azonosító alapján
+-	Végpont neve: **/login-user**
+-	Bejövő paraméter: email (string), password (string)
+-	Hova mutat: Bejelentkezés
 
-- **get-coupon-value/:name**
-  - Metódus: GET
-  - Paraméterek: name (kuponkód neve)
-  - Cél: Kuponkód értékének lekérdezése a név alapján
+-	Végpont neve: **/update-user-info**
+-	Bejövő paraméter: -
+-	Hova mutat: Adatok frissítése
 
-### Order:
+-	Végpont neve: **/update-user-password**
+-	Bejövő paraméter: -
+-	Hova mutat: Jelszó frissítése
 
-- **create-order**
-  - Metódus: POST
-  - Cél: Új rendelés létrehozása a megadott kosár és szállítási adatok alapján
+-	Végpont neve: **/update-user-addresses**
+-	Bejövő paraméter: -
+-	Hova mutat: Címek hozzáadása, törlése
+ 
+-	Végpont neve: **/admin-all-users**
+-	Bejövő paraméter: -
+-	Hova mutat: Összes felhasználó megtekintése (admin esetében)
 
-- **get-all-orders/:userId**
-  - Metódus: GET
-  - Paraméterek: userId (a felhasználó azonosítója)
-  - Cél: Az adott felhasználóhoz tartozó összes rendelés lekérdezése
-
-- **get-seller-all-orders/:shopId**
-  - Metódus: GET
-  - Paraméterek: shopId (az üzlet azonosítója)
-  - Cél: Az adott üzlethez tartozó összes rendelés lekérdezése
-
-- **update-order-status/:id**
-  - Metódus: PUT
-  - Paraméterek: id (a rendelés azonosítója)
-  - Cél: A rendelés státuszának frissítése (pl. átadva futárszolgálatnak vagy kiszállítva)
-
-- **admin-all-orders**
-  - Metódus: GET
-  - Cél: Az összes rendelés lekérdezése adminisztrációs célokra, azok szállításának és létrejöttének időrendi sorrendben történő megjelenítésével
-
-### Product:
-
-- **create-product**
-  - Metódus: POST
-  - Cél: Új termék létrehozása a megadott adatok alapján
-
-- **get-all-products-shop/:id**
-  - Metódus: GET
-  - Paraméterek: id (az üzlet azonosítója)
-  - Cél: Az adott üzlethez tartozó összes termék lekérdezése
-
-- **delete-shop-product/:id**
-  - Metódus: DELETE
-  - Paraméterek: id (a termék azonosítója)
-  - Cél: Az adott azonosítójú termék törlése az adatbázisból
-
-- **get-all-products**
-  - Metódus: GET
-  - Cél: Az összes termék lekérdezése
-
-- **create-new-review**
-  - Metódus: PUT
-  - Cél: Új értékelés létrehozása a megadott adatok alapján
-
-- **admin-all-products**
-  - Metódus: GET
-  - Paraméterek: None
-  - Cél: Az összes termék lekérdezése adminisztrációs célokra
+-	Végpont neve: **/delete-user**
+-	Bejövő paraméter: - 
+-	Hova mutat: Felhasználó törlése
 
 ### Shop:
 
-- **create-shop**
-  - Metódus: POST
-  - Cél: Új eladó létrehozása a megadott adatok alapján
+-	Végpont neve: **/create-shop**
+-	Bejövő paraméter: -
+-	Hova mutat: Fiók létrehozása
 
-- **activation**
-  - Metódus: POST
-  - Paraméterek: activation_token (aktiválási token)
-  - Cél: Az eladó aktiválása az aktiválási tokennel, majd az aktivált eladó adatainak mentése az adatbázisba
+-	Végpont neve: **/activation**
+-	Bejövő paraméter: activation token (string)
+-	Hova mutat: Fiók aktiválása
 
-- **login-shop**
-  - Metódus: POST
-  - Paraméterek: email, password
-  - Cél: Eladó bejelentkezése az e-mail cím és jelszó alapján, majd token küldése a sikeres bejelentkezéshez
+-	Végpont neve: **/login-shop**
+-	Bejövő paraméter: email (string), password (string)
+-	Hova mutat: Bejelentkezés
 
-- **getSeller**
-  - Metódus: GET
-  - Cél: Az aktuális bejelentkezett eladó adatainak lekérdezése
+-	Végpont neve: **/update-seller-info**
+-	Bejövő paraméter: -
+-	Hova mutat: Adatok frissítése
 
-- **logout**
-  - Metódus: GET
-  - Cél: Az aktuális bejelentkezett eladó kijelentkeztetése
+-	Végpont neve: **/admin-all-sellers**
+-	Bejövő paraméter: -
+-	Hova mutat: Összes eladó megtekintése (admin esetében)
 
-- **get-shop-info/:id**
-  - Metódus: GET
-  - Paraméterek: id (az eladó azonosítója)
-  - Cél: Az adott azonosítójú eladó részletes adatainak lekérdezése
+-	Végpont neve: **/delete-seller**
+-	Bejövő paraméter: -
+-	Hova mutat: Eladó törlése
 
-- **update-shop-avatar**
-  - Metódus: PUT
-  - Cél: Az aktuális bejelentkezett eladó avatarjának frissítése a megadott képpel
+### Product:
 
-- **update-seller-info**
-  - Metódus: PUT
-  - Cél: Az aktuális bejelentkezett eladó adatainak frissítése az újonnan megadott adatok alapján
+-	Végpont neve: **/create-product**
+-	Bejövő paraméter: shopId, images
+-	Hova mutat: Termék létrehozása
 
-- **admin-all-sellers**
-  - Metódus: GET
-  - Cél: Az összes eladó adatainak lekérdezése adminisztrációs célokra
+-	Végpont neve: **/get-all-products-shop**
+-	Bejövő paraméter: id
+-	Hova mutat: Összes termék megtekintése (eladó esetében)
 
-- **delete-seller/:id**
-  - Metódus: DELETE
-  - Paraméterek: id (az eladó azonosítója)
-  - Cél: Az adott azonosítójú eladó törlése az adatbázisból
+### Order:
 
-### User:
+-	Végpont neve: **/create-order**
+-	Bejövő paraméter: cart, shippingAddress, user, totalPrice, paymentInfo
+-	Hova mutat: Rendelés létrehozása
 
-- **create-user**
-  - Metódus: POST
-  - Cél: Új felhasználó létrehozása a megadott adatok alapján, majd aktiváló e-mail küldése a regisztrált e-mail címre
+-	Végpont neve: **/get-all-orders**
+-	Bejövő paraméter: userId
+-	Hova mutat: Rendelések megtekintése (vásárló esetében)
 
-- **activation**
-  - Metódus: POST
-  - Paraméterek: activation_token (aktiválási token)
-  - Cél: A felhasználó aktiválása az aktiválási tokennel, majd az aktivált felhasználó adatainak mentése az adatbázisba
+-	Végpont neve: **/get-seller-all-orders**
+-	Bejövő paraméter: shopId
+-	Hova mutat: Rendelések megtekintése (eladó esetében)
 
-- **login-user**
-  - Metódus: POST
-  - Paraméterek: email, password
-  - Cél: Felhasználó bejelentkezése az e-mail cím és jelszó alapján, majd token küldése a sikeres bejelentkezéshez
+-	Végpont neve: **/update-order-status**
+-	Bejövő paraméter: -
+-	Hova mutat: Rendelés státuszának frissítése
 
-- **getuser**
-  - Metódus: GET
-  - Cél: Az aktuális bejelentkezett felhasználó adatainak lekérdezése
 
-- **logout**
-  - Metódus: GET
-  - Cél: Az aktuális bejelentkezett felhasználó kijelentkeztetése
+### CouponCode:
 
-- **update-user-info**
-  - Metódus: PUT
-  - Cél: Az aktuális bejelentkezett felhasználó adatainak frissítése az újonnan megadott adatok alapján
+-	Végpont neve: **/create-cupon-code**
+-	Bejövő paraméter: -
+-	Hova mutat: Kupon létrehozása
 
-- **update-avatar**
-  - Metódus: PUT
-  - Cél: Az aktuális bejelentkezett felhasználó avatarjának frissítése a megadott képpel
+-	Végpont neve: **/get-cupon**
+-	Bejövő paraméter: id
+-	Hova mutat: Összes kupon megtekintése (eladó esetében)
 
-- **update-user-addresses**
-  - Metódus: PUT
-  - Cél: Az aktuális bejelentkezett felhasználó címeinek frissítése vagy hozzáadása az újonnan megadott adatok alapján
-
-- **delete-user-address/:id**
-  - Metódus: DELETE
-  - Paraméterek: id (a cím azonosítója)
-  - Cél: Az aktuális bejelentkezett felhasználó egy címének törlése az adatbázisból az azonosító alapján
-
-- **update-user-password**
-  - Metódus: PUT
-  - Cél: Az aktuális bejelentkezett felhasználó jelszavának frissítése az új jelszó alapján
-
-- **user-info/:id**
-  - Metódus: GET
-  - Paraméterek: id (a felhasználó azonosítója)
-  - Cél: Az adott azonosítójú felhasználó részletes adatainak lekérdezése
-
-- **admin-all-users**
-  - Metódus: GET
-  - Cél: Az összes felhasználó adatainak lekérdezése adminisztrációs célokra
-
-- **delete-user/:id**
-  - Metódus: DELETE
-  - Paraméterek: id (a felhasználó azonosítója)
-  - Cél: Az adott azonosítójú felhasználó törlése az adatbázisból
+-	Végpont neve: **/delete-cupon**
+-	Bejövő paraméter: -
+-	Hova mutat: Kupon törlése
 
 # Controller-ek leírása
 
