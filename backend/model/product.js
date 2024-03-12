@@ -22,11 +22,11 @@ const productSchema = new mongoose.Schema({
 
   originalPrice: {
     type: Number,
+    required: [true],
   },
 
   discountPrice: {
     type: Number,
-    required: [true],
   },
 
   stock: {
