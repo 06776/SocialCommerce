@@ -149,15 +149,15 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 -	Hova mutat: Címek hozzáadása, törlése
 
 <br>
- 
+
 -	Végpont neve: **/admin-all-users**
 -	Bejövő paraméter: -
--	Hova mutat: Összes felhasználó megtekintése (admin esetében)
+-	Hova mutat: Összes felhasználó megtekintése
 
 <br>
 
 -	Végpont neve: **/delete-user**
--	Bejövő paraméter: - 
+-	Bejövő paraméter: -
 -	Hova mutat: Felhasználó törlése
 
 ### Shop:
