@@ -118,29 +118,43 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 -	Bejövő paraméter: -
 -	Hova mutat: Fiók létrehozása
 
+<br>
+
 -	Végpont neve: **/activation**
 -	Bejövő paraméter: activation token (string)
 -	Hova mutat: Fiók aktiválása
+
+<br>
 
 -	Végpont neve: **/login-user**
 -	Bejövő paraméter: email (string), password (string)
 -	Hova mutat: Bejelentkezés
 
+<br>
+
 -	Végpont neve: **/update-user-info**
 -	Bejövő paraméter: -
 -	Hova mutat: Adatok frissítése
+
+<br>
 
 -	Végpont neve: **/update-user-password**
 -	Bejövő paraméter: -
 -	Hova mutat: Jelszó frissítése
 
+<br>
+
 -	Végpont neve: **/update-user-addresses**
 -	Bejövő paraméter: -
 -	Hova mutat: Címek hozzáadása, törlése
+
+<br>
  
 -	Végpont neve: **/admin-all-users**
 -	Bejövő paraméter: -
 -	Hova mutat: Összes felhasználó megtekintése (admin esetében)
+
+<br>
 
 -	Végpont neve: **/delete-user**
 -	Bejövő paraméter: - 
@@ -152,21 +166,31 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 -	Bejövő paraméter: -
 -	Hova mutat: Fiók létrehozása
 
+<br>
+
 -	Végpont neve: **/activation**
 -	Bejövő paraméter: activation token (string)
 -	Hova mutat: Fiók aktiválása
+
+<br>
 
 -	Végpont neve: **/login-shop**
 -	Bejövő paraméter: email (string), password (string)
 -	Hova mutat: Bejelentkezés
 
+<br>
+
 -	Végpont neve: **/update-seller-info**
 -	Bejövő paraméter: -
 -	Hova mutat: Adatok frissítése
 
+<br>
+
 -	Végpont neve: **/admin-all-sellers**
 -	Bejövő paraméter: -
 -	Hova mutat: Összes eladó megtekintése (admin esetében)
+
+<br>
 
 -	Végpont neve: **/delete-seller**
 -	Bejövő paraméter: -
