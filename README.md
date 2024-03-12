@@ -25,14 +25,14 @@
   - [CouponCode](#couponcode)
   - [Order](#order)
   - [Product](#product)
-  - [Shop](#shop)
-  - [User](#user)
+  - [Shop](#shop-1)
+  - [User](#user-1)
 - [Controller-ek leírása](#controller-ek-leírása)
   - [CouponCode](#couponcode-1)
   - [Order](#order-1)
   - [Product](#product-1)
-  - [Shop](#shop-1)
-  - [User](#user-1)
+  - [Shop](#shop-2)
+  - [User](#user-2)
 
 # A webalkalmazás célja
 
@@ -231,7 +231,6 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 -	Végpont neve: **/update-order-status**
 -	Bejövő paraméter: -
 -	Hova mutat: Rendelés státuszának frissítése
-
 
 ### CouponCode:
 

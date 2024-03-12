@@ -71,7 +71,7 @@ router.post(
         process.env.ACTIVATION_SECRET
       );
       if (!newUser) {
-        return next(new ErrorHandler("Hibás token", 400));
+        return next(new ErrorHandler("Lejárt link", 400));
       }
       const { name, email, password, avatar } = newUser;
       let user = await User.findOne({ email });
@@ -106,7 +106,7 @@ router.post(
       }
       const isPasswordValid = await user.comparePassword(password);
       if (!isPasswordValid) {
-        return next(new ErrorHandler("Hibás jelszó", 400));
+        return next(new ErrorHandler("Hibás adatok", 400));
       }
       sendToken(user, 201, res);
     } catch (error) {
@@ -149,7 +149,7 @@ router.get(
         message: "Sikeres kijelentkezés",
       });
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
+      return next(new ErrorHandler(error.message, 500)); //üzenet a felhasználónak
     }
   })
 );
