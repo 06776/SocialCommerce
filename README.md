@@ -202,6 +202,8 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 -	Bejövő paraméter: shopId, images
 -	Hova mutat: Termék létrehozása
 
+<br>
+
 -	Végpont neve: **/get-all-products-shop**
 -	Bejövő paraméter: id
 -	Hova mutat: Összes termék megtekintése (eladó esetében)
@@ -212,13 +214,19 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 -	Bejövő paraméter: cart, shippingAddress, user, totalPrice, paymentInfo
 -	Hova mutat: Rendelés létrehozása
 
+<br>
+
 -	Végpont neve: **/get-all-orders**
 -	Bejövő paraméter: userId
 -	Hova mutat: Rendelések megtekintése (vásárló esetében)
 
+<br>
+
 -	Végpont neve: **/get-seller-all-orders**
 -	Bejövő paraméter: shopId
 -	Hova mutat: Rendelések megtekintése (eladó esetében)
+
+<br>
 
 -	Végpont neve: **/update-order-status**
 -	Bejövő paraméter: -
@@ -231,9 +239,13 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 -	Bejövő paraméter: -
 -	Hova mutat: Kupon létrehozása
 
+<br>
+
 -	Végpont neve: **/get-cupon**
 -	Bejövő paraméter: id
 -	Hova mutat: Összes kupon megtekintése (eladó esetében)
+
+<br>
 
 -	Végpont neve: **/delete-cupon**
 -	Bejövő paraméter: -
