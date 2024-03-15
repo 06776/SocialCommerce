@@ -16,7 +16,7 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "100mb" }));
 
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({

@@ -97,7 +97,8 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 ### Nem funkcionális:
 
 -	Az adatbázis kiszolgáló a MongoDB (6.0)
--	Az e-maileket a NodeMailer (6.9.1) küldi
+-	Az e-mailek a NodeMailer (6.9.1) használatával kerülnek elküldésre
+- Az e-mail kiszolgáló a Google 'Alkalmazásjelszavak' funkciója
 -	A projekt a NodeJS (16) használatával készült
 
 # Tervek
