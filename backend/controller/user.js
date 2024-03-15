@@ -14,7 +14,7 @@ router.post("/create-user", async (req, res, next) => {
     const { name, email, password, avatar } = req.body;
     const userEmail = await User.findOne({ email });
     if (userEmail) {
-      return next(new ErrorHandler("Az e-mail cím foglalt", 400));
+      return next(new ErrorHandler("Az e-mail cím már foglalt", 400));
     }
     const myCloud = await cloudinary.v2.uploader.upload(avatar, {
       folder: "avatars",
@@ -115,7 +115,7 @@ router.post(
         process.env.ACTIVATION_SECRET
       );
       if (!newUser) {
-        return next(new ErrorHandler("Az aktiváló link már lejárt", 400));
+        return next(new ErrorHandler("Az aktiváló link már lejárt. Regisztrálj újra", 400));
       }
       const { name, email, password, avatar } = newUser;
       let user = await User.findOne({ email });
@@ -267,7 +267,7 @@ router.put(
       );
       if (sameTypeAddress) {
         return next(
-          new ErrorHandler(`${req.body.addressType} Ez a cím már létezik`)
+          new ErrorHandler(`${req.body.addressType} Ez a cím már létezik. Adj meg egy másikat.`)
         );
       }
       const existsAddress = user.addresses.find(
