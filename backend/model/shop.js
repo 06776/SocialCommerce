@@ -55,11 +55,6 @@ const shopSchema = new mongoose.Schema({
     required: true,
   },
 
-  availableBalance: {
-    type: Number,
-    default: 0,
-  },
-
   transections: [
     {
       amount: {

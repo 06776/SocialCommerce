@@ -96,8 +96,6 @@ router.put(
       if (req.body.status === "Kiszállítva") {
         order.deliveredAt = Date.now();
         order.paymentInfo.status = "Fizetve";
-        const serviceCharge = order.totalPrice * 0.1;
-        await updateSellerInfo(order.totalPrice - serviceCharge);
       }
       await order.save({ validateBeforeSave: false });
       res.status(200).json({
@@ -112,7 +110,6 @@ router.put(
       }
       async function updateSellerInfo(amount) {
         const seller = await Shop.findById(req.seller.id);
-        seller.availableBalance = amount;
         await seller.save();
       }
     } catch (error) {

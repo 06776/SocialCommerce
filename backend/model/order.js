@@ -23,7 +23,7 @@ const orderSchema = new mongoose.Schema({
 
   status: {
     type: String,
-    default: "Processing",
+    default: "Rendelés feldolgozás alatt",
   },
 
   paymentInfo: {
