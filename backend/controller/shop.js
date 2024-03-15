@@ -17,7 +17,7 @@ router.post(
       const { email } = req.body;
       const sellerEmail = await Shop.findOne({ email });
       if (sellerEmail) {
-        return next(new ErrorHandler("Az e-mail cím foglalt", 400));
+        return next(new ErrorHandler("Az e-mail cím már foglalt", 400));
       }
       const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: "avatars",
@@ -39,17 +39,60 @@ router.post(
       const activationToken = createActivationToken(seller);
       const activationUrl = `http://localhost:3000/seller/activation/${activationToken}`;
 
+      const emailTemplate = `
+      <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+          }
+          .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+          }
+          .header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: center;
+          }
+          .content {
+            padding: 20px;
+          }
+          .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>SocialCommerce</h1>
+          </div>
+          <div class="content">
+            <p>Kedves ${seller.name}!</p>
+            <p>Kérjük, aktiváld regisztrációdat az alábbi linkre kattintva:</p>
+            <p><a href="${activationUrl}" class="button">Fiók aktiválása</a></p>
+            <p>(Az aktiváló link csak 10 percig érvényes!)</p>
+            <p>Üdvözlettel: SocialCommerce</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
       try {
         await sendMail({
           email: seller.email,
-          subject: "Aktiváld eladói fiókodat",
-          message: `Kedves ${seller.name}!
-
-        Köszönjük regisztrációdat.
-        Kérjük, aktiváld fiókodat az alábbi linkre kattintva:
-        ${activationUrl}
-        
-        Üdvözlettel: SocialCommerce`,
+          subject: "Eladó aktiválás",
+          html: emailTemplate,
         });
         res.status(201).json({
           success: true,
@@ -66,7 +109,7 @@ router.post(
 
 const createActivationToken = (seller) => {
   return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "10m",
   });
 };
 
@@ -80,13 +123,13 @@ router.post(
         process.env.ACTIVATION_SECRET
       );
       if (!newSeller) {
-        return next(new ErrorHandler("Hibás link", 400));
+        return next(new ErrorHandler("Az aktiváló link már lejárt. Regisztrálj újra", 400));
       }
       const { name, email, password, avatar, zipCode, address, phoneNumber } =
         newSeller;
       let seller = await Shop.findOne({ email });
       if (seller) {
-        return next(new ErrorHandler("A felhasználó már létezik", 400));
+        return next(new ErrorHandler("Ez az eladó már létezik", 400));
       }
       seller = await Shop.create({
         name,
@@ -115,11 +158,11 @@ router.post(
       const user = await Shop.findOne({ email }).select("+password");
 
       if (!user) {
-        return next(new ErrorHandler("Nincs ilyen felhasználó", 400));
+        return next(new ErrorHandler("A felhasználó nem található", 400));
       }
       const isPasswordValid = await user.comparePassword(password);
       if (!isPasswordValid) {
-        return next(new ErrorHandler("A megadott jelszó hibás", 400));
+        return next(new ErrorHandler("Hibás adatok", 400));
       }
       sendShopToken(user, 201, res);
     } catch (error) {
@@ -135,7 +178,7 @@ router.get(
     try {
       const seller = await Shop.findById(req.seller._id);
       if (!seller) {
-        return next(new ErrorHandler("Nincs ilyen felhasználó", 400));
+        return next(new ErrorHandler("A felhasználó nem található", 400));
       }
       res.status(200).json({
         success: true,
@@ -162,7 +205,7 @@ router.get(
         message: "Sikeres kijelentkezés",
       });
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
+      return next(new ErrorHandler("A kijelentkezés nem sikerült. Próbáld újra", 500));
     }
   })
 );
@@ -192,7 +235,8 @@ router.put(
       await cloudinary.v2.uploader.destroy(imageId);
       const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: "avatars",
-        width: 150,
+        width: 1500,
+        height: 1500,
       });
       existsSeller.avatar = {
         public_id: myCloud.public_id,
@@ -218,7 +262,7 @@ router.put(
       const { name, description, address, phoneNumber, zipCode } = req.body;
       const shop = await Shop.findOne(req.seller._id);
       if (!shop) {
-        return next(new ErrorHandler("Nincs ilyen felhasználó", 400));
+        return next(new ErrorHandler("A felhasználó nem található", 400));
       }
       shop.name = name;
       shop.description = description;
@@ -263,7 +307,7 @@ router.delete(
     try {
       const seller = await Shop.findById(req.params.id);
       if (!seller) {
-        return next(new ErrorHandler("Nincs ilyen felhasználó", 400));
+        return next(new ErrorHandler("A felhasználó nem található", 400));
       }
       await Shop.findByIdAndDelete(req.params.id);
       res.status(201).json({
