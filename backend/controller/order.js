@@ -87,15 +87,15 @@ router.put(
       if (!order) {
         return next(new ErrorHandler("Nincs ilyen rendelés", 400));
       }
-      if (req.body.status === "Átadva futárszolgálatnak") {
+      if (req.body.status === "Transferred to delivery partner") {
         order.cart.forEach(async (o) => {
           await updateOrder(o._id, o.qty);
         });
       }
       order.status = req.body.status;
-      if (req.body.status === "Kiszállítva") {
+      if (req.body.status === "Delivered") {
         order.deliveredAt = Date.now();
-        order.paymentInfo.status = "Fizetve";
+        order.paymentInfo.status = "Succeeded";
       }
       await order.save({ validateBeforeSave: false });
       res.status(200).json({
