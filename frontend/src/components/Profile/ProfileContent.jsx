@@ -18,7 +18,6 @@ import {
   updatUserAddress,
   updateUserInformation,
 } from "../../redux/actions/user";
-import { Country, State } from "country-state-city";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -113,6 +112,7 @@ const ProfileContent = ({ active }) => {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    disabled
                   />
                 </div>
                 <div className=" w-[100%] 800px:w-[50%]">
@@ -534,7 +534,7 @@ const ChangePassword = () => {
 
 const Address = () => {
   const [open, setOpen] = useState(false);
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("Magyarország");
   const [city, setCity] = useState("");
   const [zipCode, setZipCode] = useState();
   const [address1, setAddress1] = useState("");
@@ -613,45 +613,21 @@ const Address = () => {
                       onChange={(e) => setCountry(e.target.value)}
                       className="w-[95%] border h-[40px] rounded-[5px]"
                     >
-                      <option value="" className="block border pb-2">
-                        Válaszd ki az országodat
+                      <option value="Magyarország" className="block border pb-2">
+                        Magyarország
                       </option>
-                      {Country &&
-                        Country.getAllCountries().map((item) => (
-                          <option
-                            className="block pb-2"
-                            key={item.isoCode}
-                            value={item.isoCode}
-                          >
-                            {item.name}
-                          </option>
-                        ))}
                     </select>
                   </div>
 
                   <div className="w-full pb-2">
-                    <label className="block pb-2">Megye</label>
-                    <select
-                      name=""
-                      id=""
+                    <label className="block pb-2">Város</label>
+                    <input
+                      type="text"
+                      className={`${styles.input}`}
+                      required
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="w-[95%] border h-[40px] rounded-[5px]"
-                    >
-                      <option value="" className="block border pb-2">
-                        Válaszd ki a megyédet
-                      </option>
-                      {State &&
-                        State.getStatesOfCountry(country).map((item) => (
-                          <option
-                            className="block pb-2"
-                            key={item.isoCode}
-                            value={item.isoCode}
-                          >
-                            {item.name}
-                          </option>
-                        ))}
-                    </select>
+                    />
                   </div>
 
                   <div className="w-full pb-2">
@@ -749,7 +725,7 @@ const Address = () => {
             </div>
             <div className="pl-8 flex items-center">
               <h6 className="text-[12px] 800px:text-[unset]">
-                {item.address1} {item.address2}
+                {item.zipCode} {item.city}{","} {item.address1}{","} {item.address2}
               </h6>
             </div>
             <div className="pl-8 flex items-center">

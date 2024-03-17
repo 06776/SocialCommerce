@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "../../styles/styles";
-import { Country, State } from "country-state-city";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -11,7 +10,7 @@ import { toast } from "react-toastify";
 const Checkout = () => {
   const { user } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart);
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("Magyarország");
   const [city, setCity] = useState("");
   const [userInfo, setUserInfo] = useState(false);
   const [address1, setAddress1] = useState("");
@@ -27,35 +26,40 @@ const Checkout = () => {
   }, []);
 
   const paymentSubmit = () => {
-   if(address1 === "" || address2 === "" || zipCode === null || country === "" || city === ""){
-      toast.error("Válaszd ki a címedet")
-   } else{
-    const shippingAddress = {
-      address1,
-      address2,
-      zipCode,
-      country,
-      city,
-    };
+    if (
+      address1 === "" ||
+      address2 === "" ||
+      zipCode === null ||
+      country === "" ||
+      city === ""
+    ) {
+      toast.error("Válaszd ki a címedet");
+    } else {
+      const shippingAddress = {
+        address1,
+        address2,
+        zipCode,
+        country,
+        city,
+      };
 
-    const orderData = {
-      cart,
-      totalPrice,
-      subTotalPrice,
-      discountPrice,
-      shippingAddress,
-      user,
+      const orderData = {
+        cart,
+        totalPrice,
+        subTotalPrice,
+        discountPrice,
+        shippingAddress,
+        user,
+      };
+      localStorage.setItem("latestOrder", JSON.stringify(orderData));
+      navigate("/payment");
     }
-    localStorage.setItem("latestOrder", JSON.stringify(orderData));
-    navigate("/payment");
-   }
   };
 
   const subTotalPrice = cart.reduce(
     (acc, item) => acc + item.qty * item.discountPrice,
     0
   );
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,8 +96,8 @@ const Checkout = () => {
   const discountPercentenge = couponCodeData ? discountPrice : "";
 
   const totalPrice = couponCodeData
-    ? (subTotalPrice - discountPercentenge)
-    : (subTotalPrice);
+    ? subTotalPrice - discountPercentenge
+    : subTotalPrice;
 
   console.log(discountPercentenge);
 
@@ -205,38 +209,27 @@ const ShippingInfo = ({
           <div className="w-[50%]">
             <label className="block pb-2">Ország</label>
             <select
-              className="w-[95%] border h-[40px] rounded-[5px]"
+              name=""
+              id=""
               value={country}
               onChange={(e) => setCountry(e.target.value)}
+              className="w-[95%] border h-[40px] rounded-[5px]"
             >
-              <option className="block pb-2" value="">
-                Válaszd ki az országodat
+              <option value="Magyarország" className="block border pb-2">
+                Magyarország
               </option>
-              {Country &&
-                Country.getAllCountries().map((item) => (
-                  <option key={item.isoCode} value={item.isoCode}>
-                    {item.name}
-                  </option>
-                ))}
             </select>
           </div>
+
           <div className="w-[50%]">
-            <label className="block pb-2">Megye</label>
-            <select
-              className="w-[95%] border h-[40px] rounded-[5px]"
+            <label className="block pb-2">Város</label>
+            <input
+              type="text"
+              className={`${styles.input}`}
+              required
               value={city}
               onChange={(e) => setCity(e.target.value)}
-            >
-              <option className="block pb-2" value="">
-                Válaszd ki a megyédet
-              </option>
-              {State &&
-                State.getStatesOfCountry(country).map((item) => (
-                  <option key={item.isoCode} value={item.isoCode}>
-                    {item.name}
-                  </option>
-                ))}
-            </select>
+            />
           </div>
         </div>
 
@@ -315,7 +308,8 @@ const CartData = ({
       <div className="flex justify-between border-b pb-3">
         <h3 className="text-[16px] font-[400] text-[#000000a4]">Kedvezmény:</h3>
         <h5 className="text-[18px] font-[600]">
-          - {discountPercentenge ? "HUF" + discountPercentenge.toString() : null}
+          -{" "}
+          {discountPercentenge ? "HUF" + discountPercentenge.toString() : null}
         </h5>
       </div>
       <h5 className="text-[18px] font-[600] text-end pt-3">{totalPrice} HUF</h5>

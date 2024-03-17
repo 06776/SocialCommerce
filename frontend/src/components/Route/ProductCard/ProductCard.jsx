@@ -46,14 +46,14 @@ const ProductCard = ({ data, isEvent }) => {
   const addToCartHandler = (id) => {
     const isItemExists = cart && cart.find((i) => i._id === id);
     if (isItemExists) {
-      toast.error("Item already in cart!");
+      toast.error("A termék már a kosárban van");
     } else {
       if (data.stock < 1) {
         toast.error("Product stock limited!");
       } else {
         const cartData = { ...data, qty: 1 };
         dispatch(addTocart(cartData));
-        toast.success("Item added to cart successfully!");
+        toast.success("Termék hozzáadva a kosárhoz");
       }
     }
   };
