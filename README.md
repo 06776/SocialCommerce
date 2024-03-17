@@ -20,6 +20,9 @@
       - [User](#user)
       - [Shop](#shop)
     - [Nem funkcionális](#nem-funkcionális)
+- [Tervek](#tervek)
+  - [BackEnd terv](#backend-terv)
+  - [FrontEnd terv](#frontend-terv)
 - [Program leírása](#program-leírása)
 - [Végpontok leírása](#végpontok-leírása)
   - [CouponCode](#couponcode)
@@ -108,6 +111,10 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 ![BackEnd](frontend/src/Assets/Database_plan.png)
 
 ## FrontEnd terv
+
+![FrontEnd](frontend/src/Assets/Home.png)
+![FrontEnd](frontend/src/Assets/Login.png)
+![FrontEnd](frontend/src/Assets/Registration.png)
 
 # Program leírása
 
