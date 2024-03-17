@@ -66,23 +66,23 @@ const OrderDetails = () => {
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center">
           <BsFillBagFill size={30} color="crimson" />
-          <h1 className="pl-2 text-[25px]">Order Details</h1>
+          <h1 className="pl-2 text-[25px]">Rendelés adatai</h1>
         </div>
         <Link to="/dashboard-orders">
           <div
             className={`${styles.button} !bg-[#fce1e6] !rounded-[4px] text-[#e94560] font-[600] !h-[45px] text-[18px]`}
           >
-            Order List
+            Rendelések
           </div>
         </Link>
       </div>
 
       <div className="w-full flex items-center justify-between pt-6">
         <h5 className="text-[#00000084]">
-          Order ID: <span>#{data?._id?.slice(0, 8)}</span>
+          Rendelés azonosítója: <span>#{data?._id?.slice(0, 8)}</span>
         </h5>
         <h5 className="text-[#00000084]">
-          Placed on: <span>{data?.createdAt?.slice(0, 10)}</span>
+          Rendelés dátuma: <span>{data?.createdAt?.slice(0, 10)}</span>
         </h5>
       </div>
 
@@ -99,7 +99,7 @@ const OrderDetails = () => {
             <div className="w-full">
               <h5 className="pl-3 text-[20px]">{item.name}</h5>
               <h5 className="pl-3 text-[20px] text-[#00000091]">
-                US${item.discountPrice} x {item.qty}
+                {item.discountPrice} HUF x {item.qty}
               </h5>
             </div>
           </div>
@@ -107,34 +107,35 @@ const OrderDetails = () => {
 
       <div className="border-t w-full text-right">
         <h5 className="pt-3 text-[18px]">
-          Total Price: <strong>US${data?.totalPrice}</strong>
+          Végösszeg: <strong>{data?.totalPrice} HUF</strong>
         </h5>
       </div>
       <br />
       <br />
       <div className="w-full 800px:flex items-center">
         <div className="w-full 800px:w-[60%]">
-          <h4 className="pt-3 text-[20px] font-[600]">Shipping Address:</h4>
-          <h4 className="pt-3 text-[20px]">
-            {data?.shippingAddress.address1 +
-              " " +
-              data?.shippingAddress.address2}
-          </h4>
-          <h4 className=" text-[20px]">{data?.shippingAddress.country}</h4>
-          <h4 className=" text-[20px]">{data?.shippingAddress.city}</h4>
-          <h4 className=" text-[20px]">{data?.user?.phoneNumber}</h4>
+          <h3 className="pt-3 text-[30px] font-[500]"><u><b>Szállítási adatok:</b></u></h3>
+          <br />
+          <h4 className="text-[20px]"><b>Név:</b> {data?.user?.name}</h4>
+          <h4 className="text-[20px]"><b>Ország:</b> {data?.shippingAddress.country}</h4>
+          <h4 className="text-[20px]"><b>Irányítószám:</b> {data?.shippingAddress.zipCode}</h4>
+          <h4 className="text-[20px]"><b>Város:</b> {data?.shippingAddress.city}</h4>
+          <h4 className="text-[20px]"><b>Utca, házszám:</b> {data?.shippingAddress.address1 +
+          ", " + data?.shippingAddress.address2}</h4>
+          <h4 className="text-[20px]"><b>E-mail:</b> {data?.user?.email}</h4>
+          <h4 className="text-[20px]"><b>Telefonszám:</b> {"+36" + data?.user?.phoneNumber}</h4>
         </div>
         <div className="w-full 800px:w-[40%]">
-          <h4 className="pt-3 text-[20px]">Payment Info:</h4>
+          <h4 className="pt-3 text-[20px]">Fizetési információ:</h4>
           <h4>
-            Status:{" "}
-            {data?.paymentInfo?.status ? data?.paymentInfo?.status : "Not Paid"}
+            Aktuális:{" "}
+            {data?.paymentInfo?.status ? data?.paymentInfo?.status : "Utánvét"}
           </h4>
         </div>
       </div>
       <br />
       <br />
-      <h4 className="pt-3 text-[20px] font-[600]">Order Status:</h4>
+      <h4 className="pt-3 text-[20px] font-[600]">Státusz módosítása:</h4>
       {data?.status !== "Processing refund" &&
         data?.status !== "Refund Success" && (
           <select
@@ -194,7 +195,7 @@ const OrderDetails = () => {
             : refundOrderUpdateHandler
         }
       >
-        Update Status
+        Módosítás
       </div>
     </div>
   );

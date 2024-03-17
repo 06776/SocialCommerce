@@ -18,11 +18,11 @@ const AllOrders = () => {
   }, [dispatch, seller._id]);
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Rendelés azonosítója", minWidth: 230, flex: 0.7 },
 
     {
       field: "status",
-      headerName: "Status",
+      headerName: "Rendelés státusza",
       minWidth: 130,
       flex: 0.7,
       cellClassName: (params) => {
@@ -33,7 +33,7 @@ const AllOrders = () => {
     },
     {
       field: "itemsQty",
-      headerName: "Items Qty",
+      headerName: "Mennyiség",
       type: "number",
       minWidth: 130,
       flex: 0.7,
@@ -41,7 +41,7 @@ const AllOrders = () => {
 
     {
       field: "total",
-      headerName: "Total",
+      headerName: "Végösszeg",
       type: "number",
       minWidth: 130,
       flex: 0.8,
@@ -49,9 +49,8 @@ const AllOrders = () => {
 
     {
       field: " ",
-      flex: 1,
-      minWidth: 150,
-      headerName: "",
+      minWidth: 200,
+      headerName: "Adatok megtekintése",
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -75,7 +74,7 @@ const AllOrders = () => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
-        total: "US$ " + item.totalPrice,
+        total: item.totalPrice + " HUF",
         status: item.status,
       });
     });

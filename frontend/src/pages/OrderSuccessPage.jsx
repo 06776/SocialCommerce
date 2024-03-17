@@ -27,7 +27,7 @@ const Success = () => {
     <div>
       <Lottie options={defaultOptions} width={300} height={300} />
       <h5 className="text-center mb-14 text-[25px] text-[#000000a1]">
-        Your order is successful 😍
+        Sikeres rendelés
       </h5>
       <br />
       <br />
