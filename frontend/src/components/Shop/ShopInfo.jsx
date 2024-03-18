@@ -65,9 +65,11 @@ const ShopInfo = ({ isOwner }) => {
               />
             </div>
             <h3 className="text-center py-2 text-[20px]">{data.name}</h3>
-            <p className="text-[16px] text-[#000000a6] p-[10px] flex items-center">
-              {data.description}
-            </p>
+            <p className="text-[16px] text-[#000000a6] p-[10px] flex items-center"></p>
+          </div>
+          <div className="p-3">
+            <h5 className="font-[600]">Leírás</h5>
+            <h4 className="text-[#000000a6]">{data.description}</h4>
           </div>
           <div className="p-3">
             <h5 className="font-[600]">Cím</h5>
@@ -75,7 +77,7 @@ const ShopInfo = ({ isOwner }) => {
           </div>
           <div className="p-3">
             <h5 className="font-[600]">Telefonszám</h5>
-            <h4 className="text-[#000000a6]">{data.phoneNumber}</h4>
+            <h4 className="text-[#000000a6]">+36{data.phoneNumber}</h4>
           </div>
           <div className="p-3">
             <h5 className="font-[600]">Termékek</h5>

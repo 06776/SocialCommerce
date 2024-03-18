@@ -36,7 +36,7 @@ const ShopSettings = () => {
           )
           .then((res) => {
             dispatch(loadSeller());
-            toast.success("Avatar updated successfully!");
+            toast.success("Profilkép sikeresen frissítve");
           })
           .catch((error) => {
             toast.error(error.response.data.message);
@@ -63,7 +63,7 @@ const ShopSettings = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Shop info updated succesfully!");
+        toast.success("Eladói adatok frissítve");
         dispatch(loadSeller());
       })
       .catch((error) => {
@@ -95,13 +95,10 @@ const ShopSettings = () => {
           </div>
         </div>
 
-        <form
-          className="flex flex-col items-center"
-          onSubmit={updateHandler}
-        >
+        <form className="flex flex-col items-center" onSubmit={updateHandler}>
           <div className="w-[100%] flex items-center flex-col 800px:w-[50%] mt-5">
             <div className="w-full pl-[3%]">
-              <label className="block pb-2">Shop Name</label>
+              <label className="block pb-2">Eladó vagy vállalkozás neve</label>
             </div>
             <input
               type="name"
@@ -109,19 +106,21 @@ const ShopSettings = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
-              required
+              disabled
             />
           </div>
           <div className="w-[100%] flex items-center flex-col 800px:w-[50%] mt-5">
             <div className="w-full pl-[3%]">
-              <label className="block pb-2">Shop description</label>
+              <label className="block pb-2">
+                Eladó vagy vállalkozás leírása
+              </label>
             </div>
             <input
               type="name"
               placeholder={`${
                 seller?.description
                   ? seller.description
-                  : "Enter your shop description"
+                  : "Adj meg egy rövid leírást"
               }`}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -130,7 +129,7 @@ const ShopSettings = () => {
           </div>
           <div className="w-[100%] flex items-center flex-col 800px:w-[50%] mt-5">
             <div className="w-full pl-[3%]">
-              <label className="block pb-2">Shop Address</label>
+              <label className="block pb-2">Eladó vagy vállalkozás címe</label>
             </div>
             <input
               type="name"
@@ -144,13 +143,13 @@ const ShopSettings = () => {
 
           <div className="w-[100%] flex items-center flex-col 800px:w-[50%] mt-5">
             <div className="w-full pl-[3%]">
-              <label className="block pb-2">Shop Phone Number</label>
+              <label className="block pb-2">Telefonszám</label>
             </div>
             <input
-              type="number"
-              placeholder={seller?.phoneNumber}
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              type="text"
+              placeholder="+36"
+              value={phoneNumber ? `+36${phoneNumber}` : ""}
+              onChange={(e) => setPhoneNumber(e.target.value.replace("+36", ""))}
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
               required
             />
@@ -158,7 +157,7 @@ const ShopSettings = () => {
 
           <div className="w-[100%] flex items-center flex-col 800px:w-[50%] mt-5">
             <div className="w-full pl-[3%]">
-              <label className="block pb-2">Shop Zip Code</label>
+              <label className="block pb-2">Irányítószám</label>
             </div>
             <input
               type="number"
@@ -173,7 +172,7 @@ const ShopSettings = () => {
           <div className="w-[100%] flex items-center flex-col 800px:w-[50%] mt-5">
             <input
               type="submit"
-              value="Update Shop"
+              value="Adatok frissítése"
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
               required
               readOnly

@@ -24,22 +24,22 @@ const AllProducts = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Termék azonosítója", minWidth: 130, flex: 0.9 },
     {
       field: "name",
-      headerName: "Name",
-      minWidth: 180,
-      flex: 1.4,
+      headerName: "Termék neve",
+      minWidth: 100,
+      flex: 0.8,
     },
     {
       field: "price",
-      headerName: "Price",
+      headerName: "Termék ára",
       minWidth: 100,
       flex: 0.6,
     },
     {
       field: "Stock",
-      headerName: "Stock",
+      headerName: "DB",
       type: "number",
       minWidth: 80,
       flex: 0.5,
@@ -47,16 +47,16 @@ const AllProducts = () => {
 
     {
       field: "sold",
-      headerName: "Sold out",
+      headerName: "Eladva",
       type: "number",
-      minWidth: 130,
-      flex: 0.6,
+      minWidth: 100,
+      flex: 0.5,
     },
     {
       field: "Preview",
-      flex: 0.8,
-      minWidth: 100,
-      headerName: "",
+      flex: 0.6,
+      minWidth: 80,
+      headerName: "Megtekintés",
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -73,9 +73,9 @@ const AllProducts = () => {
     },
     {
       field: "Delete",
-      flex: 0.8,
-      minWidth: 120,
-      headerName: "",
+      flex: 0.4,
+      minWidth: 100,
+      headerName: "Törlés",
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -97,7 +97,7 @@ const AllProducts = () => {
       row.push({
         id: item._id,
         name: item.name,
-        price: "US$ " + item.discountPrice,
+        price: item.originalPrice + " HUF",
         Stock: item.stock,
         sold: item?.sold_out,
       });

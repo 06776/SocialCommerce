@@ -131,11 +131,13 @@ const ProfileContent = ({ active }) => {
                 <div className=" w-[100%] 800px:w-[50%]">
                   <label className="block pb-2">Telefonszám</label>
                   <input
-                    type="number"
+                    type="text"
                     className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                     required
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    value={phoneNumber ? `+36${phoneNumber}` : "+36"}
+                    onChange={(e) =>
+                      setPhoneNumber(e.target.value.replace("+36", ""))
+                    }
                   />
                 </div>
 
@@ -613,7 +615,10 @@ const Address = () => {
                       onChange={(e) => setCountry(e.target.value)}
                       className="w-[95%] border h-[40px] rounded-[5px]"
                     >
-                      <option value="Magyarország" className="block border pb-2">
+                      <option
+                        value="Magyarország"
+                        className="block border pb-2"
+                      >
                         Magyarország
                       </option>
                     </select>
@@ -725,7 +730,9 @@ const Address = () => {
             </div>
             <div className="pl-8 flex items-center">
               <h6 className="text-[12px] 800px:text-[unset]">
-                {item.zipCode} {item.city}{","} {item.address1}{","} {item.address2}
+                {item.zipCode} {item.city}
+                {","} {item.address1}
+                {","} {item.address2}
               </h6>
             </div>
             <div className="pl-8 flex items-center">

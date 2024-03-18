@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   AiFillHeart,
   AiOutlineHeart,
-  AiOutlineMessage,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllProductsShop } from "../../redux/actions/product";
-import { server } from "../../server";
 import styles from "../../styles/styles";
 import {
   addToWishlist,
@@ -17,7 +15,6 @@ import {
 import { addTocart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
 import Ratings from "./Ratings";
-import axios from "axios";
 
 const ProductDetails = ({ data }) => {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -89,28 +86,6 @@ const ProductDetails = ({ data }) => {
 
   const averageRating = avg.toFixed(2);
 
-  const handleMessageSubmit = async () => {
-    if (isAuthenticated) {
-      const groupTitle = data._id + user._id;
-      const userId = user._id;
-      const sellerId = data.shop._id;
-      await axios
-        .post(`${server}/conversation/create-new-conversation`, {
-          groupTitle,
-          userId,
-          sellerId,
-        })
-        .then((res) => {
-          navigate(`/inbox?${res.data.conversation._id}`);
-        })
-        .catch((error) => {
-          toast.error(error.response.data.message);
-        });
-    } else {
-      toast.error("Please login to create a conversation");
-    }
-  };
-
   return (
     <div className="bg-white">
       {data ? (
@@ -151,10 +126,10 @@ const ProductDetails = ({ data }) => {
                 <p>{data.description}</p>
                 <div className="flex pt-3">
                   <h4 className={`${styles.productDiscountPrice}`}>
-                    {data.discountPrice}$
+                    {data.originalPrice} HUF
                   </h4>
                   <h3 className={`${styles.price}`}>
-                    {data.originalPrice ? data.originalPrice + "$" : null}
+                    {data.originalPrice ? data.discountPrice + "HUF" : null}
                   </h3>
                 </div>
 
@@ -183,7 +158,7 @@ const ProductDetails = ({ data }) => {
                         className="cursor-pointer"
                         onClick={() => removeFromWishlistHandler(data)}
                         color={click ? "red" : "#333"}
-                        title="Remove from wishlist"
+                        title="Törlés a kedvencekből"
                       />
                     ) : (
                       <AiOutlineHeart
@@ -191,7 +166,7 @@ const ProductDetails = ({ data }) => {
                         className="cursor-pointer"
                         onClick={() => addToWishlistHandler(data)}
                         color={click ? "red" : "#333"}
-                        title="Add to wishlist"
+                        title="Kedvencekhez adás"
                       />
                     )}
                   </div>
@@ -201,7 +176,7 @@ const ProductDetails = ({ data }) => {
                   onClick={() => addToCartHandler(data._id)}
                 >
                   <span className="text-white flex items-center">
-                    Add to cart <AiOutlineShoppingCart className="ml-1" />
+                    Kosárba <AiOutlineShoppingCart className="ml-1" />
                   </span>
                 </div>
                 <div className="flex items-center pt-8">
@@ -221,14 +196,6 @@ const ProductDetails = ({ data }) => {
                     <h5 className="pb-3 text-[15px]">
                       ({averageRating}/5) Ratings
                     </h5>
-                  </div>
-                  <div
-                    className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
-                    onClick={handleMessageSubmit}
-                  >
-                    <span className="text-white flex items-center">
-                      Send Message <AiOutlineMessage className="ml-1" />
-                    </span>
                   </div>
                 </div>
               </div>
@@ -266,7 +233,7 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(1)}
           >
-            Product Details
+            Termék leírása
           </h5>
           {active === 1 ? (
             <div className={`${styles.active_indicator}`} />
@@ -279,7 +246,7 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(2)}
           >
-            Product Reviews
+            Értékelések
           </h5>
           {active === 2 ? (
             <div className={`${styles.active_indicator}`} />
@@ -292,7 +259,7 @@ const ProductDetailsInfo = ({
             }
             onClick={() => setActive(3)}
           >
-            Seller Information
+            Eladó
           </h5>
           {active === 3 ? (
             <div className={`${styles.active_indicator}`} />
@@ -329,7 +296,7 @@ const ProductDetailsInfo = ({
 
           <div className="w-full flex justify-center">
             {data && data.reviews.length === 0 && (
-              <h5>No Reviews have for this product!</h5>
+              <h5>Nincsenek értékelések</h5>
             )}
           </div>
         </div>
@@ -348,7 +315,7 @@ const ProductDetailsInfo = ({
                 <div className="pl-3">
                   <h3 className={`${styles.shop_name}`}>{data.shop.name}</h3>
                   <h5 className="pb-2 text-[15px]">
-                    ({averageRating}/5) Ratings
+                    ({averageRating}/5) Értékelések
                   </h5>
                 </div>
               </div>
@@ -358,26 +325,26 @@ const ProductDetailsInfo = ({
           <div className="w-full 800px:w-[50%] mt-5 800px:mt-0 800px:flex flex-col items-end">
             <div className="text-left">
               <h5 className="font-[600]">
-                Joined on:{" "}
+                Regisztrált:{" "}
                 <span className="font-[500]">
                   {data.shop?.createdAt?.slice(0, 10)}
                 </span>
               </h5>
               <h5 className="font-[600] pt-3">
-                Total Products:{" "}
+                Termékek:{" "}
                 <span className="font-[500]">
                   {products && products.length}
                 </span>
               </h5>
               <h5 className="font-[600] pt-3">
-                Total Reviews:{" "}
+                Értékelések:{" "}
                 <span className="font-[500]">{totalReviewsLength}</span>
               </h5>
               <Link to="/">
                 <div
                   className={`${styles.button} !rounded-[4px] !h-[39.5px] mt-3`}
                 >
-                  <h4 className="text-white">Visit Shop</h4>
+                  <h4 className="text-white">Eladó profilja</h4>
                 </div>
               </Link>
             </div>

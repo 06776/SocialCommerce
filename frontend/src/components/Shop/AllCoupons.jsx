@@ -43,7 +43,7 @@ const AllCoupons = () => {
     axios
       .delete(`${server}/coupon/delete-coupon/${id}`, { withCredentials: true })
       .then((res) => {
-        toast.success("Coupon code deleted succesfully!");
+        toast.success("Kuponkód sikeresen törölve");
       });
     window.location.reload();
   };
@@ -56,16 +56,13 @@ const AllCoupons = () => {
         `${server}/coupon/create-coupon-code`,
         {
           name,
-          minAmount,
-          maxAmount,
-          selectedProducts,
           value,
           shopId: seller._id,
         },
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Coupon code created successfully!");
+        toast.success("Kuponkód sikeresen létrehozva");
         setOpen(false);
         window.location.reload();
       })
@@ -75,16 +72,16 @@ const AllCoupons = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "Id", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Kupon azonosítója", minWidth: 150, flex: 0.7 },
     {
       field: "name",
-      headerName: "Coupon Code",
+      headerName: "Kuponkód",
       minWidth: 180,
       flex: 1.4,
     },
     {
       field: "price",
-      headerName: "Value",
+      headerName: "Kedvezmény %-ban",
       minWidth: 100,
       flex: 0.6,
     },
@@ -92,7 +89,7 @@ const AllCoupons = () => {
       field: "Delete",
       flex: 0.8,
       minWidth: 120,
-      headerName: "",
+      headerName: "Törlés",
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -130,7 +127,7 @@ const AllCoupons = () => {
               className={`${styles.button} !w-max !h-[45px] px-3 !rounded-[5px] mr-3 mb-3`}
               onClick={() => setOpen(true)}
             >
-              <span className="text-white">Create Coupon Code</span>
+              <span className="text-white">Kuponkód létrehozása</span>
             </div>
           </div>
           <DataGrid
@@ -151,13 +148,13 @@ const AllCoupons = () => {
                   />
                 </div>
                 <h5 className="text-[30px] font-Poppins text-center">
-                  Create Coupon code
+                  Kuponkód létrehozása
                 </h5>
                 <form onSubmit={handleSubmit}>
                   <br />
                   <div>
                     <label className="pb-2">
-                      Name <span className="text-red-500">*</span>
+                      Kupon neve <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -166,14 +163,13 @@ const AllCoupons = () => {
                       value={name}
                       className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Enter your coupon code name..."
+                      placeholder="Add meg a kuponkódot (számok és/vagy betűk)"
                     />
                   </div>
                   <br />
                   <div>
                     <label className="pb-2">
-                      Discount Percentenge{" "}
-                      <span className="text-red-500">*</span>
+                      Kedvezmény mértéke (%) <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -182,43 +178,43 @@ const AllCoupons = () => {
                       required
                       className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       onChange={(e) => setValue(e.target.value)}
-                      placeholder="Enter your coupon code value..."
+                      placeholder="Add meg a kedvezmény mértékét"
                     />
                   </div>
                   <br />
                   <div>
-                    <label className="pb-2">Min Amount</label>
+                    <label className="pb-2">Minimum mennyiség</label>
                     <input
                       type="number"
                       name="value"
                       value={minAmount}
                       className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       onChange={(e) => setMinAmout(e.target.value)}
-                      placeholder="Enter your coupon code min amount..."
+                      placeholder="Add meg a kupon minimum mennyiségét (nem kötelező)"
                     />
                   </div>
                   <br />
                   <div>
-                    <label className="pb-2">Max Amount</label>
+                    <label className="pb-2">Maximum mennyiség</label>
                     <input
                       type="number"
                       name="value"
                       value={maxAmount}
                       className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       onChange={(e) => setMaxAmount(e.target.value)}
-                      placeholder="Enter your coupon code max amount..."
+                      placeholder="Add meg a kupon maximum mennyiségét (nem kötelező)"
                     />
                   </div>
                   <br />
                   <div>
-                    <label className="pb-2">Selected Product</label>
+                    <label className="pb-2">Termék kiválasztása</label>
                     <select
                       className="w-full mt-2 border h-[35px] rounded-[5px]"
                       value={selectedProducts}
                       onChange={(e) => setSelectedProducts(e.target.value)}
                     >
                       <option value="Choose your selected products">
-                        Choose a selected product
+                        Choose your selected products
                       </option>
                       {products &&
                         products.map((i) => (
@@ -232,7 +228,7 @@ const AllCoupons = () => {
                   <div>
                     <input
                       type="submit"
-                      value="Create"
+                      value="Létrehozás"
                       className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     />
                   </div>
