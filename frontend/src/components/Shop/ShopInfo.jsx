@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { server } from "../../server";
 import styles from "../../styles/styles";
 import Loader from "../Layout/Loader";
@@ -13,6 +13,7 @@ const ShopInfo = ({ isOwner }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllProductsShop(id));
@@ -33,6 +34,7 @@ const ShopInfo = ({ isOwner }) => {
     axios.get(`${server}/shop/logout`, {
       withCredentials: true,
     });
+    navigate ("/");
     window.location.reload();
   };
 

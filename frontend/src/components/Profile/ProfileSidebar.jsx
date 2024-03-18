@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineLogin } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { HiOutlineReceiptRefund, HiOutlineShoppingBag } from "react-icons/hi";
+import { HiOutlineShoppingBag } from "react-icons/hi";
 import {
   MdOutlineAdminPanelSettings,
   MdOutlineTrackChanges,
@@ -22,8 +22,8 @@ const ProfileSidebar = ({ setActive, active }) => {
       .get(`${server}/user/logout`, { withCredentials: true })
       .then((res) => {
         toast.success(res.data.message);
-        window.location.reload(true);
         navigate("/");
+        window.location.reload(true);
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -55,19 +55,6 @@ const ProfileSidebar = ({ setActive, active }) => {
           } 800px:block hidden`}
         >
           Rendelések
-        </span>
-      </div>
-      <div
-        className="flex items-center cursor-pointer w-full mb-8"
-        onClick={() => setActive(3)}
-      >
-        <HiOutlineReceiptRefund size={20} color={active === 3 ? "red" : ""} />
-        <span
-          className={`pl-3 ${
-            active === 3 ? "text-[red]" : ""
-          } 800px:block hidden`}
-        >
-          Visszaküldések
         </span>
       </div>
 
