@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const Shop = require("../model/shop");
+const Shop = require("../models/shop");
 
 mongoose
   .connect(

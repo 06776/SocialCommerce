@@ -3,10 +3,10 @@ const path = require("path");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
-const Shop = require("../model/shop");
-const { isAuthenticated, isSeller, isAdmin } = require("../middleware/auth");
+const Shop = require("../models/shop");
+const { isAuthenticated, isSeller, isAdmin } = require("../middlewares/auth");
 const cloudinary = require("cloudinary");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ErrorHandler = require("../utils/ErrorHandler");
 const sendShopToken = require("../utils/shopToken");
 

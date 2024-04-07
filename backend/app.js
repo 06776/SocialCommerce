@@ -1,5 +1,5 @@
 const express = require("express");
-const ErrorHandler = require("./middleware/error");
+const ErrorHandler = require("./middlewares/error");
 const app = express();
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -24,11 +24,11 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
   });
 }
 
-const user = require("./controller/user");
-const shop = require("./controller/shop");
-const product = require("./controller/product");
-const coupon = require("./controller/coupounCode");
-const order = require("./controller/order");
+const user = require("./controllers/user");
+const shop = require("./controllers/shop");
+const product = require("./controllers/product");
+const coupon = require("./controllers/couponCode");
+const order = require("./controllers/order");
 
 app.use("/api/v2/user", user);
 app.use("/api/v2/order", order);
