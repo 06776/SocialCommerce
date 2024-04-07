@@ -205,13 +205,18 @@ const Header = ({ activeHeading }) => {
           <div>
             <BiMenuAltLeft
               size={40}
-              className="ml-4"
+              className="mt-3 ml-4"
               onClick={() => setOpen(true)}
             />
           </div>
           <div>
             <Link to="/">
-              <img src="" alt="Store logo" className="mt-3 cursor-pointer" />
+              <img
+                src={require("../../Assets/socialcommerce_logo.png")}
+                alt="Store logo"
+                width="180"
+                height="180"
+              />
             </Link>
           </div>
           <div>

@@ -155,7 +155,7 @@ const ProfileContent = ({ active }) => {
                 </div>
               </div>
               <input
-                className={`w-[250px] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
+                className={`w-[250px] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-2 cursor-pointer`}
                 required
                 value="Adatok frissítése"
                 type="submit"

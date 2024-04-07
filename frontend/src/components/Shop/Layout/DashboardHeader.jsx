@@ -11,8 +11,8 @@ const DashboardHeader = () => {
           <img
             src={require("../../../Assets/socialcommerce_logo.png")}
             alt="Store logo"
-            width="200"
-            height="200"
+            width="180"
+            height="180"
           />
         </Link>
       </div>
@@ -25,16 +25,12 @@ const DashboardHeader = () => {
 
       <div className="flex items-center">
         <div className="flex items-center mr-4">
-          <div className="flex items-center mr-4">
-            <h1>
-              Üdvözöljük, <b>{seller.name}</b>
-            </h1>
-          </div>
+          
           <Link to={`/shop/${seller._id}`}>
             <img
               src={`${seller.avatar?.url}`}
               alt=""
-              className="w-[50px] h-[50px] rounded-full object-cover"
+              className="w-[50px] h-[50px] rounded-full"
             />
           </Link>
         </div>
