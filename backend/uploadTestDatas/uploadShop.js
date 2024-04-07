@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const Shop = require("./model/shop");
+const Shop = require("../model/shop");
 
 mongoose
   .connect(
-    "",
+    "mongodb+srv://socialcommerce:W3K3hjztCrft@socialcommerce.xuhc4r5.mongodb.net/SocialCommerce",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -21,12 +21,7 @@ mongoose
       address: "Teszt utca, 11",
       phoneNumber: 123456789,
       role: "Seller",
-      avatar: {
-        public_id: "example-public-id",
-        url: "example-avatar-url",
-      },
       zipCode: 1234,
-      availableBalance: 0,
     };
 
     const shop = new Shop(shopData);

@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const User = require("./model/user");
+const User = require("../model/user");
 
 mongoose
   .connect(
-    "",
+    "mongodb+srv://socialcommerce:W3K3hjztCrft@socialcommerce.xuhc4r5.mongodb.net/SocialCommerce",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -20,19 +20,15 @@ mongoose
       phoneNumber: 123456789,
       addresses: [
         {
-          country: "Hungary",
+          country: "HU",
           city: "Budapest",
           address1: "Teszt utca",
           address2: "12",
           zipCode: 1234,
-          addressType: "Home",
+          addressType: "Otthon",
         },
       ],
       role: "user",
-      avatar: {
-        public_id: "example-public-id",
-        url: "example-avatar-url",
-      },
     };
 
     const user = new User(userData);
