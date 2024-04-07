@@ -58,14 +58,14 @@ const ProductDetails = ({ data }) => {
   const addToCartHandler = (id) => {
     const isItemExists = cart && cart.find((i) => i._id === id);
     if (isItemExists) {
-      toast.error("Item already in cart!");
+      toast.error("A termék már a kosárban van");
     } else {
       if (data.stock < 1) {
-        toast.error("Product stock limited!");
+        toast.error("A termék nincs raktáron");
       } else {
         const cartData = { ...data, qty: count };
         dispatch(addTocart(cartData));
-        toast.success("Item added to cart successfully!");
+        toast.success("Termék sikeresen a kosárhoz adva");
       }
     }
   };
@@ -126,10 +126,12 @@ const ProductDetails = ({ data }) => {
                 <p>{data.description}</p>
                 <div className="flex pt-3">
                   <h4 className={`${styles.productDiscountPrice}`}>
-                    {data.originalPrice} HUF
+                    {data.discountPrice
+                      ? data.discountPrice + " HUF"
+                      : data.originalPrice + " HUF"}
                   </h4>
                   <h3 className={`${styles.price}`}>
-                    {data.originalPrice ? data.discountPrice + "HUF" : null}
+                    {data.discountPrice ? data.originalPrice + " HUF" : null}
                   </h3>
                 </div>
 
@@ -194,7 +196,7 @@ const ProductDetails = ({ data }) => {
                       </h3>
                     </Link>
                     <h5 className="pb-3 text-[15px]">
-                      ({averageRating}/5) Ratings
+                      ({averageRating}/5) Értékelések
                     </h5>
                   </div>
                 </div>

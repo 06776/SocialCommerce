@@ -49,7 +49,7 @@ const ProductCard = ({ data, isEvent }) => {
       toast.error("A termék már a kosárban van");
     } else {
       if (data.stock < 1) {
-        toast.error("Product stock limited!");
+        toast.error("A termék nincs raktáron");
       } else {
         const cartData = { ...data, qty: 1 };
         dispatch(addTocart(cartData));
@@ -96,14 +96,15 @@ const ProductCard = ({ data, isEvent }) => {
           <div className="py-2 flex items-center justify-between">
             <div className="flex">
               <h5 className={`${styles.productDiscountPrice}`}>
-                {data.originalPrice === 0
-                  ? data.originalPrice
-                  : data.discountPrice} HUF
+                {data.discountPrice
+                  ? data.discountPrice + " HUF"
+                  : data.originalPrice + " HUF"}
               </h5>
               <h4 className={`${styles.price}`}>
-                {data.originalPrice ? data.originalPrice + " HUF" : null}
+                {data.discountPrice ? data.originalPrice + " HUF" : null}
               </h4>
             </div>
+
             <span className="font-[400] text-[17px] text-[#68d284]">
               <br></br>
               {data?.sold_out} eladva
