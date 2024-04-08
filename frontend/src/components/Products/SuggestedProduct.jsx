@@ -5,17 +5,19 @@ import ProductCard from "../Route/ProductCard/ProductCard";
 
 const SuggestedProduct = ({ data }) => {
   const { allProducts } = useSelector((state) => state.products);
-  const [productData, setProductData] = useState();
+  const [productData, setProductData] = useState([]);
 
   useEffect(() => {
-    const d =
-      allProducts && allProducts.filter((i) => i.category === data.category);
-    setProductData(d);
-  }, [allProducts, data.category]);
+    if (data && data.category) {
+      const d =
+        allProducts && allProducts.filter((i) => i.category === data.category);
+      setProductData(d);
+    }
+  }, [allProducts, data]);
 
   return (
     <div>
-      {data ? (
+      {data && data.category ? (
         <div className={`p-4 ${styles.section}`}>
           <h2
             className={`${styles.heading} text-[25px] font-[500] border-b mb-5`}

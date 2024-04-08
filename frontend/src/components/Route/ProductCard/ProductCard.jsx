@@ -104,11 +104,6 @@ const ProductCard = ({ data, isEvent }) => {
                 {data.discountPrice ? data.originalPrice + " HUF" : null}
               </h4>
             </div>
-
-            <span className="font-[400] text-[17px] text-[#68d284]">
-              <br></br>
-              {data?.sold_out} eladva
-            </span>
           </div>
         </Link>
 
