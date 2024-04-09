@@ -7,7 +7,7 @@
 
 # Konzulens
 
-- Varga Zsófia - Webprogramozó
+- Varga Zsófia – Webprogramozó
 
 # Tartalomjegyzék
 
@@ -49,27 +49,27 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 
 ## BackEnd keretrendszer:
 
-- Express JS
+- ExpressJS (4.18.2)
 
 ## Adatbázis kiszolgáló:
 
-- MongoDB
+- MongoDB (6.0)
 
 ## E-mail küldés:
 
-- NodeMailer
+- NodeMailer (6.9.1)
 
 ## FrontEnd keretrendszer:
 
-- React JS
+- ReactJS (18.2.0)
 
 ## CSS kiszolgáló:
 
-- Tailwind CSS
+- Tailwind CSS (3.2.4)
 
 ## JavaScript kiszolgáló:
 
-- Node JS
+- NodeJS (16)
 
 # Követelmények
 
@@ -472,4 +472,3 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
   - Paraméterek: id (a felhasználó azonosítója)
   - Működés: Törli az adott azonosítójú felhasználó profilját az adatbázisból.
   - Visszatérési érték: Sikeres törlés üzenet.
-
