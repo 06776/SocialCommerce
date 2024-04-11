@@ -1,5 +1,3 @@
-import { Button } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
 import React, { useEffect } from "react";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { deleteProduct } from "../../redux/actions/product";
 import Loader from "../Layout/Loader";
+import "../../styles/products.css";
 
 const AllProducts = () => {
   const { products, isLoading } = useSelector((state) => state.products);
@@ -32,37 +31,32 @@ const AllProducts = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {products &&
               products.map((product) => (
-                <div
-                  key={product._id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden"
-                >
-                  <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">
-                      ID: {product._id}
+                <div key={product._id} className="product-card">
+                  <div className="product-info">
+                    <div className="product-header">
+                      <h2 className="product-title">
+                        Termék azonosítója: {product._id}
+                      </h2>
                     </div>
-                    <div className="font-bold text-xl mb-2">{product.name}</div>
-                    <p className="text-gray-700 text-base">
+                    <h3 className="product-name">{product.name}</h3>
+                    <p className="product-price">
                       Ár: {product.originalPrice} HUF
                     </p>
-                    <p className="text-gray-700 text-base">
-                      Készlet: {product.stock}
-                    </p>
+                    <p className="product-stock">Készlet: {product.stock}</p>
                   </div>
-                  <div className="px-6 py-4 flex justify-between items-center">
-                    <div>
-                      <Link
-                        to={`/product/${product._id}`}
-                        className="text-blue-500 hover:text-blue-700"
-                      >
-                        <AiOutlineEye size={20} />
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(product._id)}
-                        className="ml-2 text-red-500 hover:text-red-700"
-                      >
-                        <AiOutlineDelete size={20} />
-                      </button>
-                    </div>
+                  <div className="product-actions">
+                    <Link
+                      to={`/product/${product._id}`}
+                      className="product-icon"
+                    >
+                      <AiOutlineEye size={24} />
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(product._id)}
+                      className="product-icon delete-icon"
+                    >
+                      <AiOutlineDelete size={24} />
+                    </button>
                   </div>
                 </div>
               ))}

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { server } from "../../server";
 
-// create product
 export const createProduct =
   (
     name,
@@ -30,7 +29,7 @@ export const createProduct =
         discountPrice,
         stock,
         shopId,
-        images,
+        images
       );
       dispatch({
         type: "productCreateSuccess",
@@ -44,7 +43,6 @@ export const createProduct =
     }
   };
 
-// get All Products of a shop
 export const getAllProductsShop = (id) => async (dispatch) => {
   try {
     dispatch({
@@ -66,7 +64,6 @@ export const getAllProductsShop = (id) => async (dispatch) => {
   }
 };
 
-// delete product of a shop
 export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch({
@@ -92,7 +89,6 @@ export const deleteProduct = (id) => async (dispatch) => {
   }
 };
 
-// get all products
 export const getAllProducts = () => async (dispatch) => {
   try {
     dispatch({
