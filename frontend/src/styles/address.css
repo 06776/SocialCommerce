@@ -1,0 +1,32 @@
+.address-card {
+  background-color: #fff; /* Háttérszín */
+  border-radius: 10px; /* Border kerekítése */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Árnyék */
+  padding: 15px; /* Belső térköz a kártyában */
+  margin-bottom: 20px; /* Alsó térköz a kártyák között */
+}
+
+.address-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.delete-icon {
+  cursor: pointer;
+}
+
+.address-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-xs {
+  font-size: 14px; /* Szövegméret */
+}

@@ -7,10 +7,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { server } from "../../server";
 import styles from "../../styles/styles";
-import { DataGrid } from "@material-ui/data-grid";
+import "../../styles/orders.css";
+import "../../styles/address.css";
+import "../../styles/newAddress.css";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { MdTrackChanges } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import {
   deleteUserAddress,
@@ -83,10 +84,10 @@ const ProfileContent = ({ active }) => {
             <div className="relative">
               <img
                 src={`${user?.avatar?.url}`}
-                className="w-[150px] h-[150px] rounded-full object-cover border-[3px] border-[#3ad132]"
-                alt=""
+                className="w-[100px] h-[100px] rounded-full object-cover border-[3px] border-[#3ad132] mr-6"
+                alt="Profilkép"
               />
-              <div className="w-[30px] h-[30px] bg-[#E3E9EE] rounded-full flex items-center justify-center cursor-pointer absolute bottom-[5px] right-[5px]">
+              <div className="w-[30px] h-[30px] bg-[#E3E9EE] rounded-full flex items-center justify-center cursor-pointer absolute bottom-[5px] right-[5px] mr-5">
                 <input
                   type="file"
                   id="image"
@@ -99,7 +100,6 @@ const ProfileContent = ({ active }) => {
               </div>
             </div>
           </div>
-          <br />
           <br />
           <div className="w-full px-5">
             <form onSubmit={handleSubmit}>
@@ -155,7 +155,8 @@ const ProfileContent = ({ active }) => {
                 </div>
               </div>
               <input
-                className={`w-[250px] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-2 cursor-pointer`}
+                className={`w-[240px] h-[35px] border border-[#1CBA6D] bg-[#1CBA6D]
+                text-center text-[#fff] rounded-[5px] mt-1 cursor-pointer`}
                 required
                 value="Adatok frissítése"
                 type="submit"
@@ -168,12 +169,6 @@ const ProfileContent = ({ active }) => {
       {active === 2 && (
         <div>
           <AllOrders />
-        </div>
-      )}
-
-      {active === 5 && (
-        <div>
-          <TrackOrder />
         </div>
       )}
 
@@ -201,163 +196,32 @@ const AllOrders = () => {
     dispatch(getAllOrdersOfUser(user._id));
   }, [dispatch, user._id]);
 
-  const columns = [
-    { field: "id", headerName: "Rendelés száma", minWidth: 150, flex: 0.7 },
-
-    {
-      field: "status",
-      headerName: "Rendelés állapota",
-      minWidth: 130,
-      flex: 0.7,
-      cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
-      },
-    },
-    {
-      field: "itemsQty",
-      headerName: "Mennyiség",
-      type: "number",
-      minWidth: 130,
-      flex: 0.7,
-    },
-
-    {
-      field: "total",
-      headerName: "Végösszeg",
-      type: "number",
-      minWidth: 130,
-      flex: 0.8,
-    },
-
-    {
-      field: " ",
-      flex: 1,
-      minWidth: 150,
-      headerName: "Rendelés megtekintése",
-      type: "number",
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={`/user/order/${params.id}`}>
-              <Button>
+  return (
+    <div className="order-grid-container">
+      {orders &&
+        orders.map((order) => (
+          <div key={order._id} className="order-card">
+            <div className="order-info">
+              <span>
+                <strong>Rendelés száma:</strong> {order._id}
+              </span>
+              <span>
+                <strong>Rendelés állapota:</strong> {order.status}
+              </span>
+              <span>
+                <strong>Mennyiség:</strong> {order.cart.length}
+              </span>
+              <span>
+                <strong>Végösszeg:</strong> <u>{order.totalPrice} HUF</u>
+              </span>
+            </div>
+            <Link to={`/user/order/${order._id}`} className="order-link">
+              <Button className="order-button">
                 <AiOutlineArrowRight size={20} />
               </Button>
             </Link>
-          </>
-        );
-      },
-    },
-  ];
-
-  const row = [];
-
-  orders &&
-    orders.forEach((item) => {
-      row.push({
-        id: item._id,
-        itemsQty: item.cart.length,
-        total: item.totalPrice + " HUF",
-        status: item.status,
-      });
-    });
-
-  return (
-    <div className="pl-8 pt-1">
-      <DataGrid
-        rows={row}
-        columns={columns}
-        pageSize={10}
-        disableSelectionOnClick
-        autoHeight
-      />
-    </div>
-  );
-};
-
-const TrackOrder = () => {
-  const { user } = useSelector((state) => state.user);
-  const { orders } = useSelector((state) => state.order);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllOrdersOfUser(user._id));
-  }, [dispatch, user._id]);
-
-  const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
-
-    {
-      field: "status",
-      headerName: "Status",
-      minWidth: 130,
-      flex: 0.7,
-      cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
-      },
-    },
-    {
-      field: "itemsQty",
-      headerName: "Items Qty",
-      type: "number",
-      minWidth: 130,
-      flex: 0.7,
-    },
-
-    {
-      field: "total",
-      headerName: "Total",
-      type: "number",
-      minWidth: 130,
-      flex: 0.8,
-    },
-
-    {
-      field: " ",
-      flex: 1,
-      minWidth: 150,
-      headerName: "",
-      type: "number",
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={`/user/track/order/${params.id}`}>
-              <Button>
-                <MdTrackChanges size={20} />
-              </Button>
-            </Link>
-          </>
-        );
-      },
-    },
-  ];
-
-  const row = [];
-
-  orders &&
-    orders.forEach((item) => {
-      row.push({
-        id: item._id,
-        itemsQty: item.cart.length,
-        total: item.totalPrice + " HUF",
-        status: item.status,
-      });
-    });
-
-  return (
-    <div className="pl-8 pt-1">
-      <DataGrid
-        rows={row}
-        columns={columns}
-        pageSize={10}
-        disableSelectionOnClick
-        autoHeight
-      />
+          </div>
+        ))}
     </div>
   );
 };
@@ -388,8 +252,8 @@ const ChangePassword = () => {
   };
   return (
     <div className="w-full px-5">
-      <h1 className="block text-[25px] text-center font-[600] text-[#000000ba] pb-2">
-        Jelszó módosítása
+      <h1 className="block text-[22px] text-center font-[600] text-[#000000ba] pb-2 mr-5">
+        Jelszó módosítás
       </h1>
       <div className="w-full">
         <form
@@ -397,9 +261,7 @@ const ChangePassword = () => {
           className="flex flex-col items-center"
         >
           <div className=" w-[100%] 800px:w-[50%] mt-5">
-            <label className="block pb-2">
-              Add meg a jelenlegi jelszavadat
-            </label>
+            <label className="block pb-2">Jelenlegi jelszó</label>
             <input
               type="password"
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
@@ -409,7 +271,7 @@ const ChangePassword = () => {
             />
           </div>
           <div className=" w-[100%] 800px:w-[50%] mt-2">
-            <label className="block pb-2">Add meg az új jelszót</label>
+            <label className="block pb-2">Új jelszó</label>
             <input
               type="password"
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
@@ -419,7 +281,7 @@ const ChangePassword = () => {
             />
           </div>
           <div className=" w-[100%] 800px:w-[50%] mt-2">
-            <label className="block pb-2">Add meg az új jelszót ismét</label>
+            <label className="block pb-2">Új jelszó ismét</label>
             <input
               type="password"
               className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
@@ -428,9 +290,9 @@ const ChangePassword = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <input
-              className={`w-[95%] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
+              className={`w-[95%] h-[35px] border border-[#1CBA6D] bg-[#1CBA6D] text-center text-[#fff] rounded-[5px] mt-3 cursor-pointer`}
               required
-              value="Jelszó frissítése"
+              value="Jelszó módosítása"
               type="submit"
             />
           </div>
@@ -497,124 +359,128 @@ const Address = () => {
   return (
     <div className="w-full px-5">
       {open && (
-        <div className="fixed w-full h-screen bg-[#0000004b] top-0 left-0 flex items-center justify-center ">
-          <div className="w-[35%] h-[80vh] bg-white rounded shadow relative overflow-y-scroll">
-            <div className="w-full flex justify-end p-3">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-full max-w-md bg-white rounded shadow-lg overflow-hidden">
+            <div className="flex justify-end p-4">
               <RxCross1
                 size={30}
                 className="cursor-pointer"
                 onClick={() => setOpen(false)}
               />
             </div>
-            <h1 className="text-center text-[25px] font-Poppins">
-              Új cím hozzáadása
-            </h1>
-            <div className="w-full">
-              <form onSubmit={handleSubmit} className="w-full">
-                <div className="w-full block p-4">
-                  <div className="w-full pb-2">
-                    <label className="block pb-2">Ország</label>
-                    <select
-                      name=""
-                      id=""
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      className="w-[95%] border h-[40px] rounded-[5px]"
-                    >
-                      <option
-                        value="Magyarország"
-                        className="block border pb-2"
-                      >
-                        Magyarország
-                      </option>
-                    </select>
-                  </div>
-
-                  <div className="w-full pb-2">
-                    <label className="block pb-2">Város</label>
-                    <input
-                      type="text"
-                      className={`${styles.input}`}
-                      required
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="w-full pb-2">
-                    <label className="block pb-2">Út, utca</label>
-                    <input
-                      type="address"
-                      className={`${styles.input}`}
-                      required
-                      value={address1}
-                      onChange={(e) => setAddress1(e.target.value)}
-                    />
-                  </div>
-                  <div className="w-full pb-2">
-                    <label className="block pb-2">Házszám, ajtó, emelet</label>
-                    <input
-                      type="address"
-                      className={`${styles.input}`}
-                      required
-                      value={address2}
-                      onChange={(e) => setAddress2(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="w-full pb-2">
-                    <label className="block pb-2">Irányítószám</label>
-                    <input
-                      type="number"
-                      className={`${styles.input}`}
-                      required
-                      value={zipCode}
-                      onChange={(e) => setZipCode(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="w-full pb-2">
-                    <label className="block pb-2">Cím típusa</label>
-                    <select
-                      name=""
-                      id=""
-                      value={addressType}
-                      onChange={(e) => setAddressType(e.target.value)}
-                      className="w-[95%] border h-[40px] rounded-[5px]"
-                    >
-                      <option value="" className="block border pb-2">
-                        Válaszd ki a címed típusát
-                      </option>
-                      {addressTypeData &&
-                        addressTypeData.map((item) => (
-                          <option
-                            className="block pb-2"
-                            key={item.name}
-                            value={item.name}
-                          >
-                            {item.name}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-
-                  <div className=" w-full pb-2">
-                    <input
-                      value="Cím mentése"
-                      type="submit"
-                      className={`${styles.input} mt-5 cursor-pointer`}
-                      required
-                      readOnly
-                    />
-                  </div>
-                </div>
-              </form>
+            <div className="p-4 bg-gray-200">
+              <h1 className="text-lg font-bold text-center text-gray-800">
+                Új cím hozzáadása
+              </h1>
             </div>
+            <form onSubmit={handleSubmit} className="p-4">
+              <div className="mb-4">
+                <label htmlFor="country" className="block mb-1">
+                  Ország
+                </label>
+                <select
+                  name="country"
+                  id="country"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="input-field"
+                >
+                  <option value="Magyarország">Magyarország</option>
+                </select>
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="city" className="block mb-1">
+                  Város
+                </label>
+                <input
+                  type="text"
+                  id="city"
+                  required
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className="input-field"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="address1" className="block mb-1">
+                  Út, utca
+                </label>
+                <input
+                  type="text"
+                  id="address1"
+                  required
+                  value={address1}
+                  onChange={(e) => setAddress1(e.target.value)}
+                  className="input-field"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="address2" className="block mb-1">
+                  Házszám, ajtó, emelet
+                </label>
+                <input
+                  type="text"
+                  id="address2"
+                  required
+                  value={address2}
+                  onChange={(e) => setAddress2(e.target.value)}
+                  className="input-field"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="zipCode" className="block mb-1">
+                  Irányítószám
+                </label>
+                <input
+                  type="number"
+                  id="zipCode"
+                  required
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
+                  className="input-field"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="addressType" className="block mb-1">
+                  Cím típusa
+                </label>
+                <select
+                  name="addressType"
+                  id="addressType"
+                  value={addressType}
+                  onChange={(e) => setAddressType(e.target.value)}
+                  className="input-field"
+                >
+                  <option value="">Válassz egy típust</option>
+                  {addressTypeData &&
+                    addressTypeData.map((item) => (
+                      <option key={item.name} value={item.name}>
+                        {item.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Cím mentése
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
+
       <div className="flex w-full items-center justify-between">
-        <h1 className="text-[25px] font-[600] text-[#000000ba] pb-2">
+        <h1 className="text-[20px] font-[600] text-[#000000ba] pb-2">
           Mentett címeim
         </h1>
         <div
@@ -627,31 +493,31 @@ const Address = () => {
       <br />
       {user &&
         user.addresses.map((item, index) => (
-          <div
-            className="w-full bg-white h-min 800px:h-[70px] rounded-[4px] flex items-center px-3 shadow justify-between pr-10 mb-5"
-            key={index}
-          >
-            <div className="flex items-center">
-              <h5 className="pl-5 font-[600]">{item.addressType}</h5>
-            </div>
-            <div className="pl-8 flex items-center">
-              <h6 className="text-[12px] 800px:text-[unset]">
-                {item.zipCode} {item.city}
-                {","} {item.address1}
-                {","} {item.address2}
-              </h6>
-            </div>
-            <div className="pl-8 flex items-center">
-              <h6 className="text-[12px] 800px:text-[unset]">
-                {user && user.phoneNumber}
-              </h6>
-            </div>
-            <div className="min-w-[10%] flex items-center justify-between pl-8">
-              <AiOutlineDelete
-                size={25}
-                className="cursor-pointer"
-                onClick={() => handleDelete(item)}
-              />
+          <div className="address-card" key={index}>
+            <div className="address-info">
+              <div className="address-header">
+                <h3 className="font-semibold text-lg">
+                  {item.addressType}
+                  <br></br>
+                </h3>
+                <AiOutlineDelete
+                  size={25}
+                  className="delete-icon"
+                  onClick={() => handleDelete(item)}
+                />
+              </div>
+              <div className="address-content">
+                <p className="text-xs">
+                  <span className="font-semibold">Cím:</span> {item.zipCode}{" "}
+                  {item.city}, {item.address1}, {item.address2}
+                </p>
+                <p className="text-xs">
+                  <span className="font-semibold">
+                    <br></br>Telefonszám:
+                  </span>{" "}
+                  +36{user && user.phoneNumber}
+                </p>
+              </div>
             </div>
           </div>
         ))}

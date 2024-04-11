@@ -1,0 +1,41 @@
+.order-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px; /* Térköz a kártyák között */
+}
+
+.order-card {
+  background-color: #fff; /* Háttérszín */
+  border-radius: 10px; /* Border kerekítése */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Árnyék */
+  padding: 15px; /* Belső térköz a kártyában */
+  margin-left: 20px;
+}
+
+.order-info {
+  margin-bottom: 15px; /* Eltávolítás a kártya alsó részétől */
+}
+
+.order-info span {
+  display: block; /* Egy sorba rendezés */
+  margin-bottom: 8px; /* Eltávolítás a sorok között */
+  color: #495057; /* Szövegszín */
+}
+
+.order-link {
+  text-decoration: none; /* Link aláhúzásának eltávolítása */
+}
+
+.order-button {
+  background-color: #007bff; /* Gomb háttérszíne */
+  color: #ffffff; /* Gomb szövegszíne */
+  border: none; /* Keret eltávolítása */
+  border-radius: 5px; /* Border kerekítése */
+  padding: 8px 12px; /* Belső térköz a gombban */
+  cursor: pointer; /* Mutató az interakció jelzésére */
+  transition: background-color 0.3s ease; /* Átmenet a háttérszín változásához */
+}
+
+.order-button:hover {
+  background-color: #0056b3; /* Háttérszín változása hover alatt */
+}

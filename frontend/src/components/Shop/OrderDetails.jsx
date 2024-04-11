@@ -33,7 +33,7 @@ const OrderDetails = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Order updated!");
+        toast.success("Rendelés státusza frissítve");
         navigate("/dashboard-orders");
       })
       .catch((error) => {
@@ -144,21 +144,15 @@ const OrderDetails = () => {
             className="w-[200px] mt-2 border h-[35px] rounded-[5px]"
           >
             {[
-              "Processing",
-              "Transferred to delivery partner",
-              "Shipping",
-              "Received",
-              "On the way",
-              "Delivered",
+              "Feldolgozás alatt",
+              "Átadva futárnak",
+              "Kiszállítva",
             ]
               .slice(
                 [
-                  "Processing",
-                  "Transferred to delivery partner",
-                  "Shipping",
-                  "Received",
-                  "On the way",
-                  "Delivered",
+                  "Feldolgozás alatt",
+                  "Átadva futárnak",
+                  "Kiszállítva",
                 ].indexOf(data?.status)
               )
               .map((option, index) => (

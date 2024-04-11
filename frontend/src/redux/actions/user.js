@@ -104,7 +104,7 @@ export const updatUserAddress =
       dispatch({
         type: "updateUserAddressSuccess",
         payload: {
-          successMessage: "User address updated succesfully!",
+          successMessage: "Cím sikeresen hozzáadva a fiókhoz",
           user: data.user,
         },
       });
@@ -131,7 +131,7 @@ export const deleteUserAddress = (id) => async (dispatch) => {
     dispatch({
       type: "deleteUserAddressSuccess",
       payload: {
-        successMessage: "User deleted successfully!",
+        successMessage: "Cím sikeresen törölve",
         user: data.user,
       },
     });

@@ -2,10 +2,7 @@ import React from "react";
 import { AiOutlineLogin } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import {
-  MdOutlineAdminPanelSettings,
-  MdOutlineTrackChanges,
-} from "react-icons/md";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { TbAddressBook } from "react-icons/tb";
 import { RxPerson } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
@@ -55,20 +52,6 @@ const ProfileSidebar = ({ setActive, active }) => {
           } 800px:block hidden`}
         >
           Rendelések
-        </span>
-      </div>
-
-      <div
-        className="flex items-center cursor-pointer w-full mb-8"
-        onClick={() => setActive(5)}
-      >
-        <MdOutlineTrackChanges size={20} color={active === 5 ? "red" : ""} />
-        <span
-          className={`pl-3 ${
-            active === 5 ? "text-[red]" : ""
-          } 800px:block hidden`}
-        >
-          Rendelés követése
         </span>
       </div>
 

@@ -1,0 +1,42 @@
+.order-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: all 0.3s ease;
+  width: 250px;
+  margin-left: 0px;
+}
+
+.order-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.order-info p {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.order-button {
+  margin-top: 10px;
+}
+
+.order-button a {
+  text-decoration: none;
+}
+
+.order-button button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.order-button button:hover {
+  background-color: #0056b3;
+}

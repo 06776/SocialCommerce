@@ -23,99 +23,50 @@ const AllProducts = () => {
     window.location.reload();
   };
 
-  const columns = [
-    { field: "id", headerName: "Termék azonosítója", minWidth: 130, flex: 0.9 },
-    {
-      field: "name",
-      headerName: "Termék neve",
-      minWidth: 100,
-      flex: 0.8,
-    },
-    {
-      field: "price",
-      headerName: "Termék ára",
-      minWidth: 100,
-      flex: 0.6,
-    },
-    {
-      field: "Stock",
-      headerName: "DB",
-      type: "number",
-      minWidth: 80,
-      flex: 0.5,
-    },
-
-    {
-      field: "sold",
-      headerName: "Eladva",
-      type: "number",
-      minWidth: 100,
-      flex: 0.5,
-    },
-    {
-      field: "Preview",
-      flex: 0.6,
-      minWidth: 80,
-      headerName: "Megtekintés",
-      type: "number",
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={`/product/${params.id}`}>
-              <Button>
-                <AiOutlineEye size={20} />
-              </Button>
-            </Link>
-          </>
-        );
-      },
-    },
-    {
-      field: "Delete",
-      flex: 0.4,
-      minWidth: 100,
-      headerName: "Törlés",
-      type: "number",
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <>
-            <Button onClick={() => handleDelete(params.id)}>
-              <AiOutlineDelete size={20} />
-            </Button>
-          </>
-        );
-      },
-    },
-  ];
-
-  const row = [];
-
-  products &&
-    products.forEach((item) => {
-      row.push({
-        id: item._id,
-        name: item.name,
-        price: item.originalPrice + " HUF",
-        Stock: item.stock,
-        sold: item?.sold_out,
-      });
-    });
-
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="w-full mx-8 pt-1 mt-10 bg-white">
-          <DataGrid
-            rows={row}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            autoHeight
-          />
+        <div className="container mx-auto px-4 pt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {products &&
+              products.map((product) => (
+                <div
+                  key={product._id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden"
+                >
+                  <div className="px-6 py-4">
+                    <div className="font-bold text-xl mb-2">
+                      ID: {product._id}
+                    </div>
+                    <div className="font-bold text-xl mb-2">{product.name}</div>
+                    <p className="text-gray-700 text-base">
+                      Ár: {product.originalPrice} HUF
+                    </p>
+                    <p className="text-gray-700 text-base">
+                      Készlet: {product.stock}
+                    </p>
+                  </div>
+                  <div className="px-6 py-4 flex justify-between items-center">
+                    <div>
+                      <Link
+                        to={`/product/${product._id}`}
+                        className="text-blue-500 hover:text-blue-700"
+                      >
+                        <AiOutlineEye size={20} />
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(product._id)}
+                        className="ml-2 text-red-500 hover:text-red-700"
+                      >
+                        <AiOutlineDelete size={20} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
       )}
     </>
