@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { AiOutlineMoneyCollect } from "react-icons/ai";
+import { FiPackage } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { MdBorderClear } from "react-icons/md";
+import { FiShoppingBag } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { getAllProductsShop } from "../../redux/actions/product";
@@ -54,7 +54,7 @@ const DashboardHero = () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="bg-white rounded shadow p-4">
           <div className="flex items-center">
-            <MdBorderClear size={30} className="mr-2 text-gray-500" />
+            <FiShoppingBag size={30} className="mr-2 text-gray-500" />
             <h3 className="text-lg font-semibold text-gray-500">Rendelések</h3>
           </div>
           <h5 className="text-xl font-semibold">{orders && orders.length}</h5>
@@ -64,7 +64,7 @@ const DashboardHero = () => {
         </div>
         <div className="bg-white rounded shadow p-4">
           <div className="flex items-center">
-            <AiOutlineMoneyCollect size={30} className="mr-2 text-gray-500" />
+            <FiPackage size={30} className="mr-2 text-gray-500" />
             <h3 className="text-lg font-semibold text-gray-500">Termékek</h3>
           </div>
           <h5 className="text-xl font-semibold">

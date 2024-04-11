@@ -28,6 +28,7 @@ const AllProducts = () => {
         <Loader />
       ) : (
         <div className="container mx-auto px-4 pt-8">
+          <h3 className="text-2xl font-bold pb-4">Termékek</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {products &&
               products.map((product) => (
