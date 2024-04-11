@@ -73,16 +73,16 @@ router.delete(
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const product = await Product.findById(req.params.id);
+      const productId = req.params.id;
+      const product = await Product.findByIdAndDelete(productId);
       if (!product) {
         return next(new ErrorHandler("Nincs ilyen termék", 404));
       }
-      for (let i = 0; 1 < product.images.length; i++) {
+      for (let i = 0; i < product.images.length; i++) {
         const result = await cloudinary.v2.uploader.destroy(
           product.images[i].public_id
         );
       }
-      await product.remove();
       res.status(201).json({
         success: true,
         message: "Termék sikeresen törölve",
