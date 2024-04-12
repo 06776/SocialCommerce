@@ -16,12 +16,16 @@ mongoose
     const shopData = {
       name: "Minta János",
       email: "mintajanos@gmail.com",
-      password: "Teszt1234",
-      description: "Teszt eladó",
+      password: "Teszt12345",
+      description: "Eladó",
       address: "Teszt utca, 11",
       phoneNumber: 123456789,
       role: "Seller",
-      zipCode: 1234,
+      zipCode: 2468,
+      avatar: {
+        public_id: "example-public-id",
+        url: "example-avatar-url",
+      },
     };
 
     const shop = new Shop(shopData);

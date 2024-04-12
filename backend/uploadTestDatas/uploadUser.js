@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const User = require("../models/user");
+const User = require("../models/user.js");
 
 mongoose
   .connect(
@@ -14,23 +14,26 @@ mongoose
     console.log("Sikeresen csatlakozva a MongoDB-hez");
 
     const userData = {
-      name: "Minta Péter",
-      email: "mintapeter@gmail.com",
-      password: "Teszt1234",
-      phoneNumber: 123456789,
+      name: "Kiss Zoltán",
+      email: "admin",
+      password: "admin123",
+      phoneNumber: 132453678,
       addresses: [
         {
-          country: "HU",
-          city: "Budapest",
-          address1: "Teszt utca",
-          address2: "12",
-          zipCode: 1234,
-          addressType: "Otthon",
+          country: "Hungary",
+          city: "Szeged",
+          address1: "Dézsa utca",
+          address2: "4",
+          zipCode: 1182,
+          addressType: "Home",
         },
       ],
-      role: "user",
+      role: "Admin",
+      avatar: {
+        public_id: "example-public-id",
+        url: "example-avatar-url",
+      },
     };
-
     const user = new User(userData);
     user
       .save()
