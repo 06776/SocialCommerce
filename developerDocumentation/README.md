@@ -1,4 +1,4 @@
-![Social Commerce](frontend/src/Assets/SocialCommerce.png)
+![SocialCommerce](developerDocumentation/assets/SocialCommerce.png)
 
 # A projektben résztvevők
 
@@ -108,13 +108,13 @@ A webalkalmazás zárt forráskódú, azonban felhasználható a megadott felté
 
 ## BackEnd terv
 
-![BackEnd](frontend/src/Assets/Database_plan.png)
+![BackEnd](developerDocumentation/assets/Database_plan.png)
 
 ## FrontEnd terv
 
-![FrontEnd](frontend/src/Assets/Home.png)
-![FrontEnd](frontend/src/Assets/Login.png)
-![FrontEnd](frontend/src/Assets/Registration.png)
+![FrontEnd](developerDocumentation/assets/Home.png)
+![FrontEnd](developerDocumentation/assets/Login.png)
+![FrontEnd](developerDocumentation/assets/Registration.png)
 
 # Program leírása
 
