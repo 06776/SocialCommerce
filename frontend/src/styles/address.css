@@ -1,9 +1,9 @@
 .address-card {
-  background-color: #fff; /* Háttérszín */
-  border-radius: 10px; /* Border kerekítése */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Árnyék */
-  padding: 15px; /* Belső térköz a kártyában */
-  margin-bottom: 20px; /* Alsó térköz a kártyák között */
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-bottom: 20px;
 }
 
 .address-info {
@@ -28,5 +28,5 @@
 }
 
 .text-xs {
-  font-size: 14px; /* Szövegméret */
+  font-size: 14px;
 }

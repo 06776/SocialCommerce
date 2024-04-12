@@ -1,27 +1,26 @@
-import { Button } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Button } from "@material-ui/core";
 import { AiOutlineDelete } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "../../styles/styles";
-import Loader from "../Layout/Loader";
-import { server } from "../../server";
+import axios from "axios";
 import { toast } from "react-toastify";
+import { server } from "../../server";
+import Loader from "../Layout/Loader";
+import styles from "../../styles/styles";
+import "../../styles/coupons.css";
 
 const AllCoupons = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [coupouns, setCoupouns] = useState([]);
-  const [minAmount, setMinAmout] = useState(null);
+  const [coupons, setCoupons] = useState([]);
+  const [minAmount, setMinAmount] = useState(null);
   const [maxAmount, setMaxAmount] = useState(null);
   const [selectedProducts, setSelectedProducts] = useState(null);
   const [value, setValue] = useState(null);
   const { seller } = useSelector((state) => state.seller);
   const { products } = useSelector((state) => state.products);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,10 +31,11 @@ const AllCoupons = () => {
       })
       .then((res) => {
         setIsLoading(false);
-        setCoupouns(res.data.couponCodes);
+        setCoupons(res.data.couponCodes);
       })
       .catch((error) => {
         setIsLoading(false);
+        console.error(error);
       });
   }, [dispatch, seller._id]);
 
@@ -44,8 +44,12 @@ const AllCoupons = () => {
       .delete(`${server}/coupon/delete-coupon/${id}`, { withCredentials: true })
       .then((res) => {
         toast.success("Kuponkód sikeresen törölve");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Kuponkód törlése sikertelen");
       });
-    window.location.reload();
   };
 
   const handleSubmit = async (e) => {
@@ -67,12 +71,18 @@ const AllCoupons = () => {
         window.location.reload();
       })
       .catch((error) => {
+        console.error(error);
         toast.error(error.response.data.message);
       });
   };
 
   const columns = [
-    { field: "id", headerName: "Kupon azonosítója", minWidth: 150, flex: 0.7 },
+    {
+      field: "id",
+      headerName: "Kupon azonosítója",
+      minWidth: 150,
+      flex: 0.7,
+    },
     {
       field: "name",
       headerName: "Kuponkód",
@@ -94,27 +104,19 @@ const AllCoupons = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <>
-            <Button onClick={() => handleDelete(params.id)}>
-              <AiOutlineDelete size={20} />
-            </Button>
-          </>
+          <Button className="deleteBtn" onClick={() => handleDelete(params.id)}>
+            <AiOutlineDelete size={20} />
+          </Button>
         );
       },
     },
   ];
 
-  const row = [];
-
-  coupouns &&
-    coupouns.forEach((item) => {
-      row.push({
-        id: item._id,
-        name: item.name,
-        price: item.value + " %",
-        sold: 10,
-      });
-    });
+  const rows = coupons.map((coupon) => ({
+    id: coupon._id,
+    name: coupon.name,
+    price: `${coupon.value} %`,
+  }));
 
   return (
     <>
@@ -130,30 +132,45 @@ const AllCoupons = () => {
               <span className="text-white">Kuponkód létrehozása</span>
             </div>
           </div>
-          <DataGrid
-            rows={row}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            autoHeight
-          />
+          <div className="coupon-container">
+            {coupons.map((coupon) => (
+              <div key={coupon._id} className="couponCard">
+                <div className="couponInfo">
+                  <span className="couponTitle">Kupon azonosítója:</span>{" "}
+                  {coupon._id}
+                </div>
+                <div className="couponInfo">
+                  <span className="couponTitle">Kuponkód:</span> {coupon.name}
+                </div>
+                <div className="couponInfo">
+                  <span className="couponTitle">Kedvezmény %-ban:</span>{" "}
+                  {coupon.value} %
+                </div>
+                <button
+                  className="deleteBtn"
+                  onClick={() => handleDelete(coupon._id)}
+                >
+                  <AiOutlineDelete size={20} />
+                </button>
+              </div>
+            ))}
+          </div>
           {open && (
             <div className="fixed top-0 left-0 w-full h-screen bg-[#00000062] z-[20000] flex items-center justify-center">
-              <div className="w-[90%] 800px:w-[40%] h-[80vh] bg-white rounded-md shadow p-4">
-                <div className="w-full flex justify-end">
+              <div className="w-full max-w-md bg-white rounded-md shadow p-4">
+                <div className="flex justify-end">
                   <RxCross1
                     size={30}
                     className="cursor-pointer"
                     onClick={() => setOpen(false)}
                   />
                 </div>
-                <h5 className="text-[30px] font-Poppins text-center">
+                <h5 className="text-2xl font-Poppins text-center mb-4">
                   Kuponkód létrehozása
                 </h5>
-                <form onSubmit={handleSubmit}>
-                  <br />
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label className="pb-2">
+                    <label className="block mb-1">
                       Kupon neve <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -161,60 +178,59 @@ const AllCoupons = () => {
                       name="name"
                       required
                       value={name}
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="input-field"
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Add meg a kuponkódot (számok és/vagy betűk)"
+                      placeholder="Kuponkód (számok és/vagy betűk)"
                     />
                   </div>
-                  <br />
                   <div>
-                    <label className="pb-2">
-                      Kedvezmény mértéke (%) <span className="text-red-500">*</span>
+                    <label className="block mb-1">
+                      Kedvezmény mértéke (%){" "}
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       name="value"
                       value={value}
                       required
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="input-field"
                       onChange={(e) => setValue(e.target.value)}
-                      placeholder="Add meg a kedvezmény mértékét"
+                      placeholder=""
                     />
                   </div>
-                  <br />
                   <div>
-                    <label className="pb-2">Minimum mennyiség</label>
+                    <label className="block mb-1">Minimum mennyiség</label>
                     <input
                       type="number"
                       name="value"
                       value={minAmount}
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      onChange={(e) => setMinAmout(e.target.value)}
-                      placeholder="Add meg a kupon minimum mennyiségét (nem kötelező)"
+                      className="input-field"
+                      onChange={(e) => setMinAmount(e.target.value)}
+                      placeholder=""
                     />
                   </div>
-                  <br />
                   <div>
-                    <label className="pb-2">Maximum mennyiség</label>
+                    <label className="block mb-1">Maximum mennyiség</label>
                     <input
                       type="number"
                       name="value"
                       value={maxAmount}
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="input-field"
                       onChange={(e) => setMaxAmount(e.target.value)}
-                      placeholder="Add meg a kupon maximum mennyiségét (nem kötelező)"
+                      placeholder=""
                     />
                   </div>
-                  <br />
                   <div>
-                    <label className="pb-2">Termék kiválasztása</label>
+                    <label className="block mb-1">
+                      Termék kiválasztása<span className="text-red-500">*</span>
+                    </label>
                     <select
-                      className="w-full mt-2 border h-[35px] rounded-[5px]"
+                      className="input-field"
                       value={selectedProducts}
                       onChange={(e) => setSelectedProducts(e.target.value)}
                     >
                       <option value="Choose your selected products">
-                        Choose your selected products
+                        Válassz egy terméket
                       </option>
                       {products &&
                         products.map((i) => (
@@ -224,12 +240,11 @@ const AllCoupons = () => {
                         ))}
                     </select>
                   </div>
-                  <br />
                   <div>
                     <input
                       type="submit"
                       value="Létrehozás"
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="btn-submit"
                     />
                   </div>
                 </form>

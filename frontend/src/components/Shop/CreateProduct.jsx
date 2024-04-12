@@ -97,7 +97,7 @@ const CreateProduct = () => {
             value={name}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setName(e.target.value)}
-            placeholder="Add meg a termék nevét"
+            placeholder="Termék neve"
           />
         </div>
         <br />
@@ -114,7 +114,7 @@ const CreateProduct = () => {
             value={description}
             className="mt-2 appearance-none block w-full pt-2 px-3 border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Add meg a termék leírását"
+            placeholder="Termék leírása"
           ></textarea>
         </div>
         <br />
@@ -145,7 +145,7 @@ const CreateProduct = () => {
             value={tags}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setTags(e.target.value)}
-            placeholder="Adj meg néhány taget a termékhez (nem kötelező)"
+            placeholder="Tagek hozzáadása"
           />
         </div>
         <br />
@@ -159,7 +159,7 @@ const CreateProduct = () => {
             value={originalPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setOriginalPrice(e.target.value)}
-            placeholder="Add meg a termék árát"
+            placeholder="Termék ára"
           />
         </div>
         <br />
@@ -171,7 +171,7 @@ const CreateProduct = () => {
             value={discountPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setDiscountPrice(e.target.value)}
-            placeholder="Add meg a termék kedvezményes árát (nem kötelező)"
+            placeholder="Termék kedvezményes ára"
           />
         </div>
         <br />
@@ -185,13 +185,13 @@ const CreateProduct = () => {
             value={stock}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             onChange={(e) => setStock(e.target.value)}
-            placeholder="Add meg a termék mennyiségét"
+            placeholder="Termék mennyisége"
           />
         </div>
         <br />
         <div>
           <label className="pb-2">
-            Képek hozzáadása <span className="text-red-500">*</span>
+            Kép hozzáadása <span className="text-red-500">*</span>
           </label>
           <input
             type="file"
