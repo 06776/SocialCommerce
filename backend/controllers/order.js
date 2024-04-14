@@ -95,7 +95,7 @@ router.put(
       order.status = req.body.status;
       if (req.body.status === "Kiszállítva") {
         order.deliveredAt = Date.now();
-        order.paymentInfo.status = "Succeeded";
+        order.paymentInfo.status = "Fizetve";
       }
       await order.save({ validateBeforeSave: false });
       res.status(200).json({
