@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 20px;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .product-card {
@@ -45,8 +45,4 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-}
-
-.product-link button:hover {
-  color: #077f9c;
 }

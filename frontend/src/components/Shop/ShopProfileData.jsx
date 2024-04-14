@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getAllProductsShop } from "../../redux/actions/product";
-import styles from "../../styles/styles";
 import ProductCard from "../Route/ProductCard/ProductCard";
 import Ratings from "../Products/Ratings";
 
@@ -41,17 +40,6 @@ const ShopProfileData = ({ isOwner }) => {
               Értékelések
             </h5>
           </div>
-        </div>
-        <div>
-          {isOwner && (
-            <div>
-              <Link to="/dashboard">
-                <div className={`${styles.button} !rounded-[4px] h-[42px]`}>
-                  <span className="text-[#fff]">Kezdőlap</span>
-                </div>
-              </Link>
-            </div>
-          )}
         </div>
       </div>
 

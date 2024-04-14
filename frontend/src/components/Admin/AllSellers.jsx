@@ -20,7 +20,7 @@ const AllSellers = () => {
   }, [dispatch]);
 
   if (!sellers) {
-    return <div>Betöltés folyamatban</div>;
+    return <div>Loading...</div>;
   }
 
   const handleDelete = async (id) => {
@@ -34,15 +34,27 @@ const AllSellers = () => {
   };
 
   return (
-    <div className="seller-container">
+    <div className="card-container">
       {sellers.map((seller) => (
         <div key={seller._id} className="seller-card">
-          <div className="seller-details">
-            <h2 className="seller-name">{seller.name}</h2>
-            <p className="seller-email">{seller.email}</p>
-            <p className="seller-address">{seller.address}</p>
-            <p className="seller-joined-at">
-              Joined at: {seller.createdAt.slice(0, 10)}
+          <div className="seller-info">
+            <p>
+              <strong>Azonosító:</strong> {seller._id}
+            </p>
+            <h2>
+              <strong>Név:</strong> {seller.name}
+            </h2>
+            <p>
+              <strong>E-mail:</strong> {seller.email}
+            </p>
+            <p>
+              <strong>Telefonszám:</strong> {"+36" + seller.phoneNumber}
+            </p>
+            <p>
+              <strong>Cím:</strong> {seller.zipCode + " " + seller.address}
+            </p>
+            <p>
+              <strong>Regisztrált:</strong> {seller.createdAt.slice(0, 10)}
             </p>
           </div>
           <div className="seller-actions">
@@ -58,23 +70,20 @@ const AllSellers = () => {
         </div>
       ))}
       {open && (
-        <div className="delete-modal">
-          <div className="delete-modal-content">
-            <div className="close-modal" onClick={() => setOpen(false)}>
-              X
-            </div>
-            <h3 className="delete-message">
-              Are you sure you want to delete this user?
+        <div className="modal">
+          <div className="modal-content">
+            <h3 className="modal-title">
+              Törlöd az eladót?
             </h3>
             <div className="modal-buttons">
               <div className="cancel-button" onClick={() => setOpen(false)}>
-                Cancel
+                Nem
               </div>
               <div
                 className="confirm-button"
                 onClick={() => setOpen(false) || handleDelete(userId)}
               >
-                Confirm
+                Igen
               </div>
             </div>
           </div>

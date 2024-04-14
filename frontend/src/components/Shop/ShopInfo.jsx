@@ -34,7 +34,7 @@ const ShopInfo = ({ isOwner }) => {
     axios.get(`${server}/shop/logout`, {
       withCredentials: true,
     });
-    navigate ("/");
+    navigate("/");
     window.location.reload();
   };
 
@@ -58,57 +58,69 @@ const ShopInfo = ({ isOwner }) => {
         <Loader />
       ) : (
         <div>
-          <div className="w-full py-5">
+          <div className="w-full py-5 w-[50px]">
+            <div className="flex justify-center">
+              <Link to="/">
+                <img
+                  src={require("../../Assets/socialcommerce_logo.png")}
+                  alt="Store logo"
+                  width="180"
+                  height="180"
+                />
+              </Link>
+            </div>
             <div className="w-full flex item-center justify-center">
               <img
                 src={`${data.avatar?.url}`}
                 alt=""
-                className="w-[150px] h-[150px] object-cover rounded-full"
+                className="w-[100px] h-[100px] object-cover rounded-full"
               />
             </div>
-            <h3 className="text-center py-2 text-[20px]">{data.name}</h3>
+            <h3 className="text-center py-2 text-[15px]">{data.name}</h3>
             <p className="text-[16px] text-[#000000a6] p-[10px] flex items-center"></p>
           </div>
           <div className="p-3">
-            <h5 className="font-[600]">Leírás</h5>
-            <h4 className="text-[#000000a6]">{data.description}</h4>
+            <h4 className="font-[600]">Leírás</h4>
+            <h3 className="text-[#000000a6]">{data.description}</h3>
           </div>
           <div className="p-3">
-            <h5 className="font-[600]">Cím</h5>
-            <h4 className="text-[#000000a6]">{data.address}</h4>
+            <h4 className="font-[600]">Cím</h4>
+            <h3 className="text-[#000000a6]">{data.address}</h3>
           </div>
           <div className="p-3">
-            <h5 className="font-[600]">Telefonszám</h5>
-            <h4 className="text-[#000000a6]">+36{data.phoneNumber}</h4>
+            <h4 className="font-[600]">Tel.</h4>
+            <h3 className="text-[#000000a6]">+36{data.phoneNumber}</h3>
           </div>
           <div className="p-3">
-            <h5 className="font-[600]">Termékek</h5>
-            <h4 className="text-[#000000a6]">{products && products.length}</h4>
+            <h4 className="font-[600]">Termékek</h4>
+            <h3 className="text-[#000000a6]">{products && products.length}</h3>
           </div>
           <div className="p-3">
-            <h5 className="font-[600]">Értékelések</h5>
-            <h4 className="text-[#000000b0]">{averageRating}/5</h4>
+            <h4 className="font-[600]">Értékelések</h4>
+            <h3 className="text-[#000000b0]">{averageRating}/5</h3>
           </div>
           <div className="p-3">
-            <h5 className="font-[600]">Regisztrálás dátuma</h5>
-            <h4 className="text-[#000000b0]">
+            <h4 className="font-[600]">Regisztrált</h4>
+            <h3 className="text-[#000000b0]">
               {data?.createdAt?.slice(0, 10)}
-            </h4>
+            </h3>
           </div>
           {isOwner && (
             <div className="py-3 px-4">
               <Link to="/settings">
                 <div
-                  className={`${styles.button} !w-full !h-[42px] !rounded-[5px]`}
+                  className={`${styles.button} !w-[90px] !h-[42px] !rounded-[5px]`}
                 >
-                  <span className="text-white">Profil szerkesztése</span>
+                  <span className="text-white">
+                    <h6>Szerkesztés</h6>
+                  </span>
                 </div>
               </Link>
               <div
-                className={`${styles.button} !w-full !h-[42px] !rounded-[5px]`}
+                className={`${styles.button} !w-[90px] !h-[42px] !rounded-[5px]`}
                 onClick={logoutHandler}
               >
-                <span className="text-white">Kijelentkezés</span>
+                <span className="text-white">Kilépés</span>
               </div>
             </div>
           )}

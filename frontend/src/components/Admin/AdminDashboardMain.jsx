@@ -3,11 +3,13 @@ import styles from "../../styles/styles";
 import "../../styles/adminMain.css";
 import { FiShoppingBag } from "react-icons/fi";
 import { AiOutlineShop } from "react-icons/ai";
+import { HiOutlineUserGroup } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfAdmin } from "../../redux/actions/order";
 import Loader from "../Layout/Loader";
 import { getAllSellers } from "../../redux/actions/sellers";
+import { getAllUsers } from "../../redux/actions/user";
 
 const AdminDashboardMain = () => {
   const dispatch = useDispatch();
@@ -15,10 +17,12 @@ const AdminDashboardMain = () => {
     (state) => state.order
   );
   const { sellers } = useSelector((state) => state.seller);
+  const { users } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getAllOrdersOfAdmin());
     dispatch(getAllSellers());
+    dispatch(getAllUsers());
   }, [dispatch]);
 
   return (
@@ -29,7 +33,7 @@ const AdminDashboardMain = () => {
         <div className="w-full p-4">
           <h3 className="text-[22px] font-Poppins pb-2">Áttekintés</h3>
           <div className="w-full block 800px:flex items-center justify-between">
-            <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+            <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-[#fff] shadow rounded px-2 py-5">
               <div className="flex items-center">
                 <AiOutlineShop size={30} className="mr-2" />
                 <h3
@@ -47,6 +51,26 @@ const AdminDashboardMain = () => {
                 </h5>
               </Link>
             </div>
+
+            <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+              <div className="flex items-center">
+                <HiOutlineUserGroup size={30} className="mr-2" />
+                <h3
+                  className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
+                >
+                  Felhasználók
+                </h3>
+              </div>
+              <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">
+                {users && users.length}
+              </h5>
+              <Link to="/admin-users">
+                <h5 className="pt-4 pl-2 text-[#077f9c]">
+                  Felhasználók megtekintése
+                </h5>
+              </Link>
+            </div>
+
             <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
               <div className="flex items-center">
                 <FiShoppingBag size={30} className="mr-2" />
