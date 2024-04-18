@@ -21,6 +21,8 @@ Fontos információk a projekttel kapcsolatban
    5.1) BackEnd (backend mappán belül): 'npm start' <br>
    5.2) FrontEnd (frontend mappán belül): 'yarn start'
 
+(Projektünk elérhető a www.socialcommerce.hu címen is)
+
 ## Bejelentkezési adatok
 
 - Felhasználó (vásárló): <br>
