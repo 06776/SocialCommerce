@@ -226,8 +226,8 @@ const Faq = () => {
           {activeTab === 6 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-                A házhoz szállítás díját, illetve a külföldre történő szállítást
-                az eladó határozza meg.
+                A házhoz szállítás díját az eladó határozza meg. Rendelni
+                jelenleg csak Magyarországi címre lehet.
               </p>
             </div>
           )}
