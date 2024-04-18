@@ -25,7 +25,7 @@ const ShopLogin = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Login Success!");
+        toast.success("Sikeres bejelentkezés");
         navigate("/dashboard");
         window.location.reload(true);
       })
@@ -103,22 +103,6 @@ const ShopLogin = () => {
                     onClick={() => setVisible(true)}
                   />
                 )}
-              </div>
-            </div>
-            <div className={`${styles.noramlFlex} justify-between`}>
-              <div className={`${styles.noramlFlex}`}>
-                <input
-                  type="checkbox"
-                  name="remember-me"
-                  id="remember-me"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Jegyezz meg
-                </label>
               </div>
             </div>
             <div>
